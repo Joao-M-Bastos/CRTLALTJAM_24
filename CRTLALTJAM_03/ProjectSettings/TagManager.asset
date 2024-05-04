@@ -8,6 +8,8 @@ TagManager:
   - CinemachineTarget
   - ScreenCamera
   - cockpit_capitalLaser
+  - Ground
+  - Pushable
   layers:
   - Default
   - TransparentFX
