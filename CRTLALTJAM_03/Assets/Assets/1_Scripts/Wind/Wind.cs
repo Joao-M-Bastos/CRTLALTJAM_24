@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class Wind : MonoBehaviour
 {
-    float force = 2;
+    protected PlayerScript player;
+    protected float force;
 
     public void AddWindValues(int addForce)
     {
         force += addForce;
     }
 
-    private void OnTriggerStay(Collider other)
+    /*
+    public void FixedUpdate()
+    {
+        if (player == null)
+            return;
+
+        if (!player.IsOnGround())
+            player.PlayerRB.AddForce(transform.forward * -1 * force, ForceMode.Force);
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            PlayerScript player = other.GetComponent<PlayerScript>();
-            if(!player.IsOnGround())
-                player.PlayerRB.AddForce(transform.forward * -1 * force,ForceMode.Force);
+            player = other.GetComponent<PlayerScript>();
+            if (!player.IsOnGround())
+                player.PlayerRB.AddForce(transform.forward * -2f * force, ForceMode.Impulse);
         }
     }
+
+    */
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] Transform windSpawner;
     [SerializeField] GameObject wind;
-    [SerializeField] OnGroundCheck onGround;
+    GameObject currentWind;
+    [SerializeField] bool onGround;
+
+    public Text text;
 
     Rigidbody playerRB;
 
@@ -23,14 +27,25 @@ public class PlayerScript : MonoBehaviour
 
     public bool IsOnGround()
     {
-        return onGround.OnGround();
+        return onGround;
+    }
+
+    public void ChangeOnGround(bool value)
+    {
+        onGround = value;
     }
 
     public void InstaciateWind()
     {
-        GameObject newWindObj = Instantiate(wind, windSpawner);
-        Wind newWind = newWindObj.GetComponent<Wind>();
+        currentWind = Instantiate(wind, windSpawner);
+        Wind newWind = currentWind.GetComponent<Wind>();
 
         newWind.AddWindValues(0);
+    }
+
+    public void DeleteWind()
+    {
+        if(currentWind != null)
+            Destroy(currentWind);
     }
 }
