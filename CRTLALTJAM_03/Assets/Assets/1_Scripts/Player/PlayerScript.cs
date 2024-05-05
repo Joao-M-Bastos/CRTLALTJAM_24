@@ -50,7 +50,9 @@ public class PlayerScript : MonoBehaviour
     {
         currentWind = Instantiate(wind, windSpawner);
         Wind newWind = currentWind.GetComponent<Wind>();
-        aceleration = 0;
+        aceleration = newWind.transform.forward.x;
+
+        transform.LookAt(transform.position + Vector3.forward * newWind.transform.forward.x);
 
         StartCoroutine(CleanDash());
 

@@ -59,7 +59,11 @@ public class PlayerMoveState : PlayerBaseState
         else
         {
             if (Mathf.Abs(player.PlayerRB.velocity.z) < 8 && Mathf.Abs(player.aceleration) < 0.1f)
-                player.aceleration += Input.GetAxisRaw("Horizontal") * (baseMultiplier - 2)*Time.deltaTime;
+            {
+                player.transform.LookAt(player.transform.position + Vector3.forward * Input.GetAxis("Horizontal"));
+                player.aceleration += Input.GetAxisRaw("Horizontal") * (baseMultiplier - 2) * Time.deltaTime;
+            }
+
 
             if (Mathf.Abs(player.PlayerRB.velocity.z) > 8)
             {
