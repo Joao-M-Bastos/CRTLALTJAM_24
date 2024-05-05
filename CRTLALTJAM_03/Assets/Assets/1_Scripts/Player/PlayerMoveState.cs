@@ -15,12 +15,7 @@ public class PlayerMoveState : PlayerBaseState
     {
         player.text.text = (int)player.PlayerRB.velocity.z + "";
         
-        if(Mathf.Abs(player.PlayerRB.velocity.z) < 8)
-            player.PlayerRB.velocity = new Vector3(0, player.PlayerRB.velocity.y, Input.GetAxis("Horizontal") * player.Speed);
-        else
-        {
-            player.PlayerRB.velocity -= Vector3.forward * Mathf.Sign(player.PlayerRB.velocity.z) * player.Speed/3 * Time.deltaTime;
-        }
+        player.PlayerRB.velocity += new Vector3(0, 0, player.Aceleration * player.Speed);
 
         //GravityController
         if (player.PlayerRB.velocity.y < 0)
@@ -52,7 +47,6 @@ public class PlayerMoveState : PlayerBaseState
 
         if (Input.GetKeyDown(KeyCode.Space) && player.IsOnGround())
         {
-            player.PlayerRB.AddForce(player.transform.forward * Input.GetAxis("Horizontal") * 4, ForceMode.VelocityChange);
             player.PlayerRB.velocity += Vector3.up * player.JumpForce;
         }
     }
