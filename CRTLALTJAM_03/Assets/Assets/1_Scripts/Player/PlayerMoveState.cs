@@ -15,7 +15,12 @@ public class PlayerMoveState : PlayerBaseState
     {
         player.text.text = (int)player.PlayerRB.velocity.z + "";
         
-        player.PlayerRB.velocity = new Vector3(0, player.PlayerRB.velocity.y, Input.GetAxis("Horizontal") * player.Speed);
+        if(Mathf.Abs(player.PlayerRB.velocity.z) < 8)
+            player.PlayerRB.velocity = new Vector3(0, player.PlayerRB.velocity.y, Input.GetAxis("Horizontal") * player.Speed);
+        else
+        {
+            player.PlayerRB.velocity -= Vector3.forward * Mathf.Sign(player.PlayerRB.velocity.z) * player.Speed/3 * Time.deltaTime;
+        }
 
         //GravityController
         if (player.PlayerRB.velocity.y < 0)
