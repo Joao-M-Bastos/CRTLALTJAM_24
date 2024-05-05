@@ -7,11 +7,10 @@ using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] float speed;
-    float aceleration;
+    public float aceleration;
     [Range(1, 10)][SerializeField] float jumpForce;
 
     public float Speed => speed;
-    public float Aceleration => aceleration;
     public float JumpForce => jumpForce;
 
     [SerializeField] Transform windSpawner;
@@ -32,38 +31,7 @@ public class PlayerScript : MonoBehaviour
 
     public void FixedUpdate()
     {
-        float baseMultiplier = 5;
-
-        if (!IsOnGround())
-            baseMultiplier = 3;
-
-        if (Input.GetAxisRaw("Horizontal") == 0)
-        {
-            aceleration = 0;
-
-            aceleration -= Mathf.Sign(PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
-
-            if (Mathf.Abs(PlayerRB.velocity.z) < 1f)
-            {
-                aceleration = 0;
-                PlayerRB.velocity = new Vector3(0, PlayerRB.velocity.y, 0);
-            }
-        }
-        else
-        {
-            if (Mathf.Abs(PlayerRB.velocity.z) < 8 && Mathf.Abs(aceleration) < 0.1f)
-                aceleration += Input.GetAxisRaw("Horizontal") * baseMultiplier * Time.deltaTime;
-
-            if (Mathf.Abs(PlayerRB.velocity.z) > 8)
-            {
-                aceleration = 0;
-                if(IsOnGround())
-                    aceleration -= Mathf.Sign(PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
-            }
-
-            if (Mathf.Sign(PlayerRB.velocity.z) != Mathf.Sign(Input.GetAxisRaw("Horizontal")))
-                aceleration -= Mathf.Sign(PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
-        }
+        
     }
 
     
@@ -82,6 +50,7 @@ public class PlayerScript : MonoBehaviour
     {
         currentWind = Instantiate(wind, windSpawner);
         Wind newWind = currentWind.GetComponent<Wind>();
+        aceleration = 0;
 
         StartCoroutine(CleanDash());
 

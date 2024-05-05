@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +16,12 @@ public class PlayerMoveState : PlayerBaseState
     {
         player.text.text = (int)player.PlayerRB.velocity.z + "";
 
+        ManageAcelleration(player);
+
         if (player.PlayerRB.useGravity == false)
             return;
 
-        player.PlayerRB.velocity += new Vector3(0, 0, player.Aceleration * player.Speed);
+        player.PlayerRB.velocity += new Vector3(0, 0, player.aceleration * player.Speed);
 
         //GravityController
         if (player.PlayerRB.velocity.y < 0.5f)
@@ -28,6 +31,45 @@ public class PlayerMoveState : PlayerBaseState
         else if (player.PlayerRB.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
         {
             player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 1.5f * Time.deltaTime;
+        }
+    }
+
+    private void ManageAcelleration(PlayerScript player)
+    {
+        float baseMultiplier = 4;
+
+        if (!player.IsOnGround())
+            baseMultiplier = 3;
+
+        if (player.PlayerRB.useGravity == false)
+            return;
+
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            player.aceleration = 0;
+
+            player.aceleration -= Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
+
+            if (Mathf.Abs(player.PlayerRB.velocity.z) < 1f)
+            {
+                player.aceleration = 0;
+                player.PlayerRB.velocity = new Vector3(0, player.PlayerRB.velocity.y, 0);
+            }
+        }
+        else
+        {
+            if (Mathf.Abs(player.PlayerRB.velocity.z) < 8 && Mathf.Abs(player.aceleration) < 0.1f)
+                player.aceleration += Input.GetAxisRaw("Horizontal") * (baseMultiplier - 2)*Time.deltaTime;
+
+            if (Mathf.Abs(player.PlayerRB.velocity.z) > 8)
+            {
+                player.aceleration = 0;
+                if (player.IsOnGround())
+                    player.aceleration -= Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
+            }
+
+            if (Mathf.Sign(player.PlayerRB.velocity.z) != Mathf.Sign(Input.GetAxisRaw("Horizontal")))
+                player.aceleration -= Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
         }
     }
 
