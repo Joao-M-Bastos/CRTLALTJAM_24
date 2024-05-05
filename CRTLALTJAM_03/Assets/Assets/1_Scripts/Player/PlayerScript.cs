@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] float speed;
+    [Range(1, 10)][SerializeField] float jumpForce;
 
     public float Speed => speed;
+    public float JumpForce => jumpForce;
 
     [SerializeField] Transform windSpawner;
     [SerializeField] GameObject wind;

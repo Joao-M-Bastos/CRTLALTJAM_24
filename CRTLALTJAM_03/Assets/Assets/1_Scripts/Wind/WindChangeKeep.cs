@@ -15,9 +15,9 @@ public class WindChangeKeep : Wind
         if (player == null)
             return;
 
-        //Movimentação
         if (!player.IsOnGround())
             player.PlayerRB.AddForce(transform.forward * -1 * force, ForceMode.Force);
+
     }
 
     private void OnTriggerEnter(Collider other)
