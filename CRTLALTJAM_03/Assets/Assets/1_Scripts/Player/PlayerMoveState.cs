@@ -14,8 +14,10 @@ public class PlayerMoveState : PlayerBaseState
     public override void OnStateFixedUpdade(PlayerStateManager stateManager, PlayerScript player)
     {
         player.text.text = (int)player.PlayerRB.velocity.z + "";
-        
-        if(player.PlayerRB.useGravity == true)
+
+        if (player.PlayerRB.useGravity == false)
+            return;
+
         player.PlayerRB.velocity += new Vector3(0, 0, player.Aceleration * player.Speed);
 
         //GravityController

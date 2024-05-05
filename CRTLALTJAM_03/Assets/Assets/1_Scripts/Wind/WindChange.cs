@@ -6,7 +6,7 @@ public class WindChange : Wind
 {
     private void Start()
     {
-        force = 7;
+        force = 8.5f;
     }
 
     private void OnTriggerEnter(Collider other)

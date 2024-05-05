@@ -91,7 +91,7 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator CleanDash()
     {
         PlayerRB.useGravity = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         PlayerRB.useGravity = true;
     }
 
