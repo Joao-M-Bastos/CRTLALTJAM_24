@@ -15,16 +15,17 @@ public class PlayerMoveState : PlayerBaseState
     {
         player.text.text = (int)player.PlayerRB.velocity.z + "";
         
+        if(player.PlayerRB.useGravity == true)
         player.PlayerRB.velocity += new Vector3(0, 0, player.Aceleration * player.Speed);
 
         //GravityController
-        if (player.PlayerRB.velocity.y < 0)
+        if (player.PlayerRB.velocity.y < -1)
         {
             player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 2f * Time.deltaTime;
         }
-        else if (player.PlayerRB.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        else if (player.PlayerRB.velocity.y > -1 && !Input.GetKey(KeyCode.Space))
         {
-            player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 2f * Time.deltaTime;
+            player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 1.5f * Time.deltaTime;
         }
     }
 

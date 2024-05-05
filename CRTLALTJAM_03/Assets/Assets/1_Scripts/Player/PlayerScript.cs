@@ -32,10 +32,10 @@ public class PlayerScript : MonoBehaviour
 
     public void FixedUpdate()
     {
-        float baseMultiplier = 4;
+        float baseMultiplier = 5;
 
-        if (IsOnGround())
-            baseMultiplier = 2;
+        if (!IsOnGround())
+            baseMultiplier = 3;
 
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
@@ -43,7 +43,7 @@ public class PlayerScript : MonoBehaviour
 
             aceleration -= Mathf.Sign(PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
 
-            if (Mathf.Abs(PlayerRB.velocity.z) < 0.05f)
+            if (Mathf.Abs(PlayerRB.velocity.z) < 1f)
             {
                 aceleration = 0;
                 PlayerRB.velocity = new Vector3(0, PlayerRB.velocity.y, 0);
@@ -51,18 +51,22 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if (Mathf.Abs(PlayerRB.velocity.z) < 8 && Mathf.Abs(aceleration) < 0.5f)
-                aceleration += Input.GetAxisRaw("Horizontal") * (baseMultiplier + 1) * Time.deltaTime;
+            if (Mathf.Abs(PlayerRB.velocity.z) < 8 && Mathf.Abs(aceleration) < 0.1f)
+                aceleration += Input.GetAxisRaw("Horizontal") * baseMultiplier * Time.deltaTime;
 
-            if(Mathf.Abs(PlayerRB.velocity.z) > 8)
+            if (Mathf.Abs(PlayerRB.velocity.z) > 8)
+            {
                 aceleration = 0;
+                if(IsOnGround())
+                    aceleration -= Mathf.Sign(PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
+            }
 
             if (Mathf.Sign(PlayerRB.velocity.z) != Mathf.Sign(Input.GetAxisRaw("Horizontal")))
                 aceleration -= Mathf.Sign(PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
         }
-
-        Debug.Log(aceleration);
     }
+
+    
 
     public bool IsOnGround()
     {
@@ -79,7 +83,16 @@ public class PlayerScript : MonoBehaviour
         currentWind = Instantiate(wind, windSpawner);
         Wind newWind = currentWind.GetComponent<Wind>();
 
+        StartCoroutine(CleanDash());
+
         newWind.AddWindValues(0);
+    }
+
+    private IEnumerator CleanDash()
+    {
+        PlayerRB.useGravity = false;
+        yield return new WaitForSeconds(0.5f);
+        PlayerRB.useGravity = true;
     }
 
     public void DeleteWind()

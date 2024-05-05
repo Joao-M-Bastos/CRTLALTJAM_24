@@ -15,7 +15,14 @@ public class WindChange : Wind
         {
             player = other.GetComponent<PlayerScript>();
             if (!player.IsOnGround())
+            {
                 player.PlayerRB.velocity = transform.forward * -2f * force;
+
+                //Nerfa o dash para cima
+                player.PlayerRB.velocity -= Vector3.up * player.PlayerRB.velocity.y / 2;
+            }
         }
     }
+
+    
 }
