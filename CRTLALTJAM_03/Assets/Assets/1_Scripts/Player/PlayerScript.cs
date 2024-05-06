@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
@@ -6,6 +7,11 @@ using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
+    [SerializeField] int maxBreath;
+    [SerializeField] int breath;
+    float breathTemp;
+    bool startedHolding;
+    float timeHolding;
     [SerializeField] float speed;
     public float aceleration;
     [Range(1, 10)][SerializeField] float jumpForce;
@@ -14,8 +20,7 @@ public class PlayerScript : MonoBehaviour
     public float JumpForce => jumpForce;
 
     [SerializeField] Transform windSpawner;
-    [SerializeField] GameObject wind;
-    GameObject currentWind;
+    [SerializeField] GameObject[] winds;
     [SerializeField] bool onGround;
 
     public Text text;
@@ -27,14 +32,14 @@ public class PlayerScript : MonoBehaviour
     public void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
+        breath = maxBreath;
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
-        
+        if (breath < maxBreath && !startedHolding)
+            RechargeBreath();
     }
-
-    
 
     public bool IsOnGround()
     {
@@ -46,29 +51,89 @@ public class PlayerScript : MonoBehaviour
         onGround = value;
     }
 
-    public void InstaciateWind()
+    public void RechargeBreath()
     {
-        currentWind = Instantiate(wind, windSpawner);
-        Wind newWind = currentWind.GetComponent<Wind>();
-        aceleration = newWind.transform.forward.x;
+        if (breathTemp > 1)
+        {
+            breathTemp = 0;
+            breath += 1;
+        }
 
-        transform.LookAt(transform.position + Vector3.forward * newWind.transform.forward.x);
-
-        StartCoroutine(CleanDash());
-
-        newWind.AddWindValues(0);
+        if (breathTemp != 0)
+            breathTemp += Time.deltaTime;
+        else if (IsOnGround())
+            breathTemp += 0.1f;
     }
 
-    private IEnumerator CleanDash()
+    #region Wind
+
+    public void InstaciateWind(int id)
+    {
+        GameObject currentWind = Instantiate(winds[id], windSpawner);
+        aceleration = currentWind.transform.forward.x;
+
+        transform.LookAt(transform.position + Vector3.forward * currentWind.transform.forward.x);
+
+        StartCoroutine(CleanDash(currentWind));
+    }
+
+    private IEnumerator CleanDash(GameObject newWind)
     {
         PlayerRB.useGravity = false;
         yield return new WaitForSeconds(0.3f);
+        Destroy(newWind);
         PlayerRB.useGravity = true;
     }
 
-    public void DeleteWind()
+    public void StartCharging()
     {
-        if(currentWind != null)
-            Destroy(currentWind);
+        if (breath < 0)
+            return;
+
+        startedHolding = true;
     }
+
+    public void ChargeWind()
+    {
+        if (!startedHolding)
+            return;
+        timeHolding += Time.deltaTime;
+
+
+        if (timeHolding > breath)
+        {
+            timeHolding = 0;
+            ReleaseWind();
+            breath = 0;
+        }
+    }
+
+    public void ReleaseWind()
+    {
+        breath -= Mathf.RoundToInt(Mathf.Ceil(timeHolding));
+        startedHolding = false;
+
+        if (timeHolding == 0)
+            return;
+
+        breathTemp = 0;
+
+        switch (timeHolding)
+        {
+            case < 1:
+                InstaciateWind(0);
+                break;
+
+            case < 2:
+                InstaciateWind(1);
+                break;
+            case < 3:
+                InstaciateWind(2);
+                break;
+        }
+
+        timeHolding = 0;
+        
+    }
+    #endregion
 }

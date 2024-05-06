@@ -4,23 +4,8 @@ using UnityEngine;
 
 public class Wind : MonoBehaviour
 {
-    protected PlayerScript player;
-    protected float force;
-
-    public void AddWindValues(int addForce)
-    {
-        force += addForce;
-    }
-
-    /*
-    public void FixedUpdate()
-    {
-        if (player == null)
-            return;
-
-        if (!player.IsOnGround())
-            player.PlayerRB.AddForce(transform.forward * -1 * force, ForceMode.Force);
-    }
+    PlayerScript player;
+    [SerializeField] float force;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,9 +13,17 @@ public class Wind : MonoBehaviour
         {
             player = other.GetComponent<PlayerScript>();
             if (!player.IsOnGround())
-                player.PlayerRB.AddForce(transform.forward * -2f * force, ForceMode.Impulse);
+            {
+                player.PlayerRB.velocity = transform.forward * -2f * force;
+
+                //Nerfa o dash para cima
+                player.PlayerRB.velocity -= Vector3.up * player.PlayerRB.velocity.y / 2;
+            }
+        }
+        if (other.CompareTag("Pushable"))
+        {
+            Rigidbody objRB = other.GetComponent<Rigidbody>();
+            objRB.AddForce(transform.forward * force, ForceMode.VelocityChange);
         }
     }
-
-    */
 }

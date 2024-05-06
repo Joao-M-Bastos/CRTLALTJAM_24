@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindChange : Wind
+public class WindChange : MonoBehaviour
 {
+    PlayerScript player;
+    float force;
+
     private void Start()
     {
         force = 7.5f;
@@ -22,7 +25,10 @@ public class WindChange : Wind
                 player.PlayerRB.velocity -= Vector3.up * player.PlayerRB.velocity.y / 2;
             }
         }
+        if (other.CompareTag("Pushable"))
+        {
+            Rigidbody objRB = other.GetComponent<Rigidbody>();
+            objRB.AddForce(transform.forward * force, ForceMode.Impulse);
+        }
     }
-
-    
 }

@@ -9,7 +9,7 @@ public class PlayerMoveState : PlayerBaseState
 {
     public override void OnStateFinish(PlayerStateManager stateManager, PlayerScript player)
     {
-        player.DeleteWind();
+        
     }
 
     public override void OnStateFixedUpdade(PlayerStateManager stateManager, PlayerScript player)
@@ -86,12 +86,17 @@ public class PlayerMoveState : PlayerBaseState
     {
         if (Input.GetMouseButtonDown(0))
         {
-            player.InstaciateWind();
+            player.StartCharging();
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            player.ChargeWind();
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            player.DeleteWind();
+            player.ReleaseWind();
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && player.IsOnGround())
