@@ -79,7 +79,8 @@ public class PlayerScript : MonoBehaviour
 
     private IEnumerator CleanDash(GameObject newWind)
     {
-        PlayerRB.useGravity = false;
+        if(!onGround)
+            PlayerRB.useGravity = false;
         yield return new WaitForSeconds(0.3f);
         Destroy(newWind);
         PlayerRB.useGravity = true;
@@ -110,7 +111,9 @@ public class PlayerScript : MonoBehaviour
 
     public void ReleaseWind()
     {
-        breath -= Mathf.RoundToInt(Mathf.Ceil(timeHolding));
+        if(!onGround)
+            breath -= Mathf.RoundToInt(Mathf.Ceil(timeHolding));
+
         startedHolding = false;
 
         if (timeHolding == 0)

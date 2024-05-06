@@ -8,13 +8,13 @@ public class OnGroundCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Ground"))
+        if(other.CompareTag("Ground") || other.CompareTag("Pushable"))
             player.ChangeOnGround(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Ground"))
+        if (other.CompareTag("Ground") || other.CompareTag("Pushable"))
             player.ChangeOnGround(false);
     }
 }

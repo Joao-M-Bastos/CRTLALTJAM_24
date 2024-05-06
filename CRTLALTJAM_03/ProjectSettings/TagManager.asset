@@ -25,9 +25,9 @@ TagManager:
   - Camera
   - MainCameraOnly
   - 
-  - 
-  - 
-  - 
+  - LightObj
+  - MediumObj
+  - HeavyObj
   - 
   - 
   - 
