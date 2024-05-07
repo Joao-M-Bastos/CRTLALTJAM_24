@@ -8,6 +8,7 @@ public class PlayerStateManager : MonoBehaviour
 
     PlayerBaseState currentState;
     PlayerBaseState moveState = new PlayerMoveState();
+    PlayerBaseState dashState = new PlayerDashState();
 
     public PlayerBaseState MoveState => moveState;
 
