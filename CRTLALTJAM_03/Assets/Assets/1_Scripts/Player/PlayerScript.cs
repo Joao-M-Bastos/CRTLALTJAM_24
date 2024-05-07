@@ -34,6 +34,7 @@ public class PlayerScript : MonoBehaviour
     public void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
+        playerAnim = GetComponent<Animator>();
         breath = maxBreath;
     }
 
