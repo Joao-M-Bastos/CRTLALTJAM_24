@@ -11,6 +11,7 @@ public class PlayerStateManager : MonoBehaviour
     PlayerBaseState dashState = new PlayerDashState();
 
     public PlayerBaseState MoveState => moveState;
+    public PlayerBaseState DashState => dashState;
 
     public void Awake()
     {

@@ -26,8 +26,10 @@ public class PlayerScript : MonoBehaviour
     public Text text;
 
     Rigidbody playerRB;
+    Animator playerAnim;
 
     public Rigidbody PlayerRB => playerRB;
+    public Animator PlayerAnim => playerAnim;
 
     public void Awake()
     {

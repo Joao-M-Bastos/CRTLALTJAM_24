@@ -4,23 +4,52 @@ using UnityEngine;
 
 public class PlayerDashState : PlayerBaseState
 {
+    float activeDashTime = 0.5f;
+
     public override void OnStateFinish(PlayerStateManager stateManager, PlayerScript player)
     {
-        throw new System.NotImplementedException();
+        BoxCollider playerCollider = player.GetComponent<BoxCollider>();
+        playerCollider.size += Vector3.up * 0.5f;
+        playerCollider.center += Vector3.up * 0.5f;
+
+        player.PlayerAnim.SetBool("dash", false);
+
     }
 
     public override void OnStateFixedUpdade(PlayerStateManager stateManager, PlayerScript player)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnStateStart(PlayerStateManager stateManager, PlayerScript player)
     {
-        throw new System.NotImplementedException();
+        BoxCollider playerCollider = player.GetComponent<BoxCollider>();
+        playerCollider.size += Vector3.up * -0.5f;
+        playerCollider.center += Vector3.up * -0.5f;
+
+        player.PlayerAnim.SetBool("dash", true);
+
+        activeDashTime = 0.5f;
+
+        if (Mathf.Abs(player.PlayerRB.velocity.y) + Mathf.Abs(player.PlayerRB.velocity.z) < player.Speed * 1.3f)
+        {
+            Vector3 dir = player.PlayerRB.velocity.normalized;
+            player.PlayerRB.velocity = dir * player.Speed * 1.3f;
+        }
     }
 
     public override void OnStateUpdate(PlayerStateManager stateManager, PlayerScript player)
     {
-        throw new System.NotImplementedException();
+        if (activeDashTime < 0)
+            stateManager.ChanceState(stateManager.MoveState);
+
+        activeDashTime -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Space) && player.IsOnGround())
+        {
+            player.PlayerRB.velocity += Vector3.up * player.JumpForce;
+            stateManager.ChanceState(stateManager.MoveState);
+        }
+
     }
 }

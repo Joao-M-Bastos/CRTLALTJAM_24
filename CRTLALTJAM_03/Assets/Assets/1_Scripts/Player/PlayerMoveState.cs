@@ -99,6 +99,11 @@ public class PlayerMoveState : PlayerBaseState
             player.ReleaseWind();
         }
 
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            stateManager.ChanceState(stateManager.DashState);
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && player.IsOnGround())
         {
             player.PlayerRB.velocity += Vector3.up * player.JumpForce;
