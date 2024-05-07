@@ -105,11 +105,15 @@ public class PlayerScript : MonoBehaviour
 
 
         if (timeHolding > breath)
-        {
-            timeHolding = 0;
-            ReleaseWind();
-            breath = 0;
-        }
+            CancelWind();
+    }
+
+    public void CancelWind()
+    {
+        breathTemp = 0;
+        breath -= Mathf.RoundToInt(Mathf.Ceil(timeHolding));
+        timeHolding = 0;
+        startedHolding = false;
     }
 
     public void ReleaseWind()

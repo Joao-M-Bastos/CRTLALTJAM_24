@@ -34,21 +34,17 @@ public class PlayerDashState : PlayerBaseState
             stateManager.ChanceState(stateManager.MoveState);
             return;
         }
+        actived = true;
+
+        player.CancelWind();
 
         player.PlayerAnim.SetBool("dash", true);
-
-        actived = true;
 
         BoxCollider playerCollider = player.GetComponent<BoxCollider>();
         playerCollider.size += Vector3.up * -0.5f;
         playerCollider.center += Vector3.up * -0.5f;
 
-        
-
         activeDashTime = 0.5f;
-
-        //Vector3 dir = player.PlayerRB.velocity.normalized;
-        //player.PlayerRB.velocity = dir * player.Speed * 1.3f;
     }
 
     public override void OnStateUpdate(PlayerStateManager stateManager, PlayerScript player)
