@@ -50,9 +50,8 @@ public class PlayerInWallState : PlayerBaseState
         if (Input.GetKeyDown(KeyCode.Space))
         {
             player.SetWallJumpCooldown();
-            player.PlayerRB.velocity = Vector3.up * player.JumpForce * 0.8f;
-            player.PlayerRB.velocity += -player.transform.forward * player.JumpForce / 2;
-            
+            player.PlayerRB.velocity = Vector3.up * player.JumpForce * 0.7f;
+            player.PlayerRB.velocity += -player.transform.forward * player.JumpForce / 1.5f;
         }
 
         TryChangeState(stateManager, player);

@@ -78,6 +78,7 @@ public class PlayerScript : MonoBehaviour
         {
             jumpWallCooldown = 0;
             aceleration = 0;
+            playerRB.velocity /= 2;
         }
         onGround = value;
     }
