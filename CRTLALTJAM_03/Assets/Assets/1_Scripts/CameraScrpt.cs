@@ -15,12 +15,11 @@ public class CameraScrpt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = playerTranform.position + offset;
+        transform.position = playerTranform.position + offset;
     }
 
     private void FixedUpdate()
     {
-        this.transform.position = playerTranform.position + offset;
-
+        transform.position = playerTranform.position + offset;
     }
 }

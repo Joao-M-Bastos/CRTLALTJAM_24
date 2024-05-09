@@ -9,9 +9,11 @@ public class PlayerStateManager : MonoBehaviour
     PlayerBaseState currentState;
     PlayerBaseState moveState = new PlayerMoveState();
     PlayerBaseState dashState = new PlayerDashState();
+    PlayerBaseState wallState = new PlayerInWallState();
 
     public PlayerBaseState MoveState => moveState;
     public PlayerBaseState DashState => dashState;
+    public PlayerBaseState WallState => wallState;
 
     public void Awake()
     {
@@ -32,6 +34,11 @@ public class PlayerStateManager : MonoBehaviour
     void Update()
     {
         currentState.OnStateUpdate(this, player);
+    }
+
+    public bool CheckCurrentState(PlayerBaseState stateToCheck)
+    {
+        return stateToCheck == currentState;
     }
 
     public void ChanceState(PlayerBaseState newState)

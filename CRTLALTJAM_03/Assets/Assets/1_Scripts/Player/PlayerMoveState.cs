@@ -18,13 +18,13 @@ public class PlayerMoveState : PlayerBaseState
 
         ManageAcelleration(player);
 
-        if (player.PlayerRB.useGravity == false)
+        if (player.PlayerRB.useGravity == false || player.JumpWallCooldown > 0)
             return;
 
         player.PlayerRB.velocity += new Vector3(0, 0, player.aceleration * player.Speed);
 
         //GravityController
-        if (player.PlayerRB.velocity.y < 1f)
+        if (player.PlayerRB.velocity.y < 2f)
         {
             player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 2f * Time.deltaTime;
         }
@@ -60,7 +60,6 @@ public class PlayerMoveState : PlayerBaseState
         {
             if (Mathf.Abs(player.PlayerRB.velocity.z) < 8 && Mathf.Abs(player.aceleration) < 0.1f)
             {
-                player.transform.LookAt(player.transform.position + Vector3.forward * Input.GetAxis("Horizontal"));
                 player.aceleration += Input.GetAxisRaw("Horizontal") * (baseMultiplier - 2) * Time.deltaTime;
             }
 
@@ -99,7 +98,7 @@ public class PlayerMoveState : PlayerBaseState
             player.ReleaseWind();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Mathf.Abs(player.PlayerRB.velocity.y) + Mathf.Abs(player.PlayerRB.velocity.z) > player.Speed * 0.75f)
         {
             stateManager.ChanceState(stateManager.DashState);
         }
@@ -108,6 +107,20 @@ public class PlayerMoveState : PlayerBaseState
         {
             player.PlayerRB.velocity += Vector3.up * player.JumpForce;
         }
+
+        TryChangeState(stateManager, player);
     }
-    
+
+    private void TryChangeState(PlayerStateManager stateManager, PlayerScript player)
+    {
+        Debug.DrawLine(player.transform.position, player.transform.position + player.transform.forward * 0.75f, Color.red);
+        RaycastHit hit;
+        if(Physics.Raycast(player.transform.position, player.transform.forward, out hit, 0.75f, player.WallMask))
+        {
+            if(Input.GetAxisRaw("Horizontal") == player.transform.forward.z)
+            if (player.PlayerRB.velocity.y < 1 && player.PlayerRB.useGravity && !player.IsOnGround())
+                        stateManager.ChanceState(stateManager.WallState);
+            
+        }
+    }
 }

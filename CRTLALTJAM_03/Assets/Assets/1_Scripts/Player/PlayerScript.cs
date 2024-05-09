@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] int breath;
     float breathTemp;
     bool startedHolding;
-    float timeHolding;
+    float timeHolding, jumpWallCooldown;
     [SerializeField] float speed;
     public float aceleration;
     [Range(1, 10)][SerializeField] float jumpForce;
@@ -19,9 +19,13 @@ public class PlayerScript : MonoBehaviour
     public float Speed => speed;
     public float JumpForce => jumpForce;
 
+    public float JumpWallCooldown => jumpWallCooldown;
+
     [SerializeField] Transform windSpawner;
     [SerializeField] GameObject[] winds;
     [SerializeField] bool onGround;
+    [SerializeField] LayerMask wallMask;
+    PlayerStateManager stateManager;
 
     public Text text;
 
@@ -30,18 +34,32 @@ public class PlayerScript : MonoBehaviour
 
     public Rigidbody PlayerRB => playerRB;
     public Animator PlayerAnim => playerAnim;
+    public LayerMask WallMask => wallMask;
 
     public void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
+        stateManager = GetComponent<PlayerStateManager>();
         breath = maxBreath;
     }
 
     public void Update()
     {
+        if (Mathf.Abs(playerRB.velocity.z) > 0.1f)
+            transform.LookAt(transform.position + Vector3.forward * MathF.Sign(playerRB.velocity.z));
+
         if (breath < maxBreath && !startedHolding)
             RechargeBreath();
+
+        if (jumpWallCooldown > 0)
+            jumpWallCooldown -= Time.deltaTime;
+        else if(jumpWallCooldown < 0)
+        {
+            jumpWallCooldown = 0;
+            aceleration = 0;
+        }
+
     }
 
     public bool IsOnGround()
@@ -49,8 +67,18 @@ public class PlayerScript : MonoBehaviour
         return onGround;
     }
 
+    public void SetWallJumpCooldown()
+    {
+        jumpWallCooldown = 0.6f;
+    }
+
     public void ChangeOnGround(bool value)
     {
+        if (value)
+        {
+            jumpWallCooldown = 0;
+            aceleration = 0;
+        }
         onGround = value;
     }
 
@@ -64,7 +92,7 @@ public class PlayerScript : MonoBehaviour
 
         if (breathTemp != 0)
             breathTemp += Time.deltaTime;
-        else if (IsOnGround())
+        else if (IsOnGround() || stateManager.CheckCurrentState(stateManager.WallState))
             breathTemp += 0.1f;
     }
 
@@ -136,9 +164,11 @@ public class PlayerScript : MonoBehaviour
 
             case < 2:
                 InstaciateWind(1);
+                jumpWallCooldown = 0;
                 break;
             case < 3:
                 InstaciateWind(2);
+                jumpWallCooldown = 0;
                 break;
         }
 

@@ -5,13 +5,9 @@ using UnityEngine;
 public class PlayerDashState : PlayerBaseState
 {
     float activeDashTime = 0.5f;
-    bool actived;
 
     public override void OnStateFinish(PlayerStateManager stateManager, PlayerScript player)
     {
-        if (!actived)
-            return;
-
         BoxCollider playerCollider = player.GetComponent<BoxCollider>();
         playerCollider.size += Vector3.up * 0.5f;
         playerCollider.center += Vector3.up * 0.5f;
@@ -27,15 +23,6 @@ public class PlayerDashState : PlayerBaseState
 
     public override void OnStateStart(PlayerStateManager stateManager, PlayerScript player)
     {
-
-        if (Mathf.Abs(player.PlayerRB.velocity.y) + Mathf.Abs(player.PlayerRB.velocity.z) < player.Speed * 0.75f)
-        {
-            actived = false;
-            stateManager.ChanceState(stateManager.MoveState);
-            return;
-        }
-        actived = true;
-
         player.CancelWind();
 
         player.PlayerAnim.SetBool("dash", true);
@@ -59,6 +46,5 @@ public class PlayerDashState : PlayerBaseState
             player.PlayerRB.velocity += Vector3.up * player.JumpForce;
             stateManager.ChanceState(stateManager.MoveState);
         }
-
     }
 }
