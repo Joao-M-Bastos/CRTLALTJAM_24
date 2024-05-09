@@ -117,10 +117,9 @@ public class PlayerMoveState : PlayerBaseState
         RaycastHit hit;
         if(Physics.Raycast(player.transform.position, player.transform.forward, out hit, 0.75f, player.WallMask))
         {
-            if(Input.GetAxisRaw("Horizontal") == player.transform.forward.z)
+            if(Input.GetAxisRaw("Horizontal") == player.transform.forward.z || player.JumpWallCooldown > 0)
             if (player.PlayerRB.velocity.y < 1 && player.PlayerRB.useGravity && !player.IsOnGround())
                         stateManager.ChanceState(stateManager.WallState);
-            
         }
     }
 }

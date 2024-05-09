@@ -15,8 +15,6 @@ public class PlayerInWallState : PlayerBaseState
         player.transform.LookAt(player.transform.position + Vector3.forward * Input.GetAxisRaw("Horizontal"));
 
         player.PlayerRB.velocity -= Vector3.up * Physics.gravity.y * 0.5f * Time.deltaTime;
-
-        
     }
 
     public override void OnStateStart(PlayerStateManager stateManager, PlayerScript player)
