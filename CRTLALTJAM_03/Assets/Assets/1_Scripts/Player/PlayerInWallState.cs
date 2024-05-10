@@ -24,6 +24,8 @@ public class PlayerInWallState : PlayerBaseState
 
     public override void OnStateUpdate(PlayerStateManager stateManager, PlayerScript player)
     {
+        TryChangeState(stateManager, player);
+
         if (Input.GetMouseButtonDown(0))
         {
             player.StartCharging();
@@ -52,7 +54,7 @@ public class PlayerInWallState : PlayerBaseState
             player.PlayerRB.velocity += -player.transform.forward * player.JumpForce / 1.5f;
         }
 
-        TryChangeState(stateManager, player);
+        
     }
 
     private void TryChangeState(PlayerStateManager stateManager, PlayerScript player)

@@ -41,7 +41,7 @@ public class PlayerMoveState : PlayerBaseState
         if (!player.IsOnGround())
             baseMultiplier = 3;
 
-        if (player.PlayerRB.useGravity == false)
+        if (player.PlayerRB.useGravity == false && player.JumpWallCooldown > 0)
             return;
 
         if (Input.GetAxisRaw("Horizontal") == 0)
