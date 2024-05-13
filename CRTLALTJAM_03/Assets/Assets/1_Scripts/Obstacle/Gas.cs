@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gas : MonoBehaviour
+public class Gas : Flammable
 {
     [SerializeField] Material gasMaterial, fireMaterial;
 
@@ -20,7 +20,7 @@ public class Gas : MonoBehaviour
 
     private void Start()
     {
-        DeactivateGas();
+        DeactivateFlame();
     }
 
     private void Update()
@@ -30,18 +30,18 @@ public class Gas : MonoBehaviour
             timeActive -= Time.deltaTime;
         }else if(timeActive <= 0 && fireActive)
         {
-            DeactivateGas();
+            DeactivateFlame();
         }
     }
 
-    public void DeactivateGas()
+    public override void DeactivateFlame()
     {
         fireActive = false;
         gasCollider.enabled = false;
         meshRenderer.material = gasMaterial;
     }
 
-    public void ActiveGas()
+    public override void ActiveFlame()
     {
         fireActive = true;
         timeActive = 1;

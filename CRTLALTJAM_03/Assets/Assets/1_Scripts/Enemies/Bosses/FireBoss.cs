@@ -13,6 +13,11 @@ public class FireBoss : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        attackTimeCooldown = baseAttackTimeCooldown;
+    }
+
     private void Update()
     {
         if(attackTimeCooldown > 0)
@@ -26,12 +31,12 @@ public class FireBoss : MonoBehaviour
 
     public void Attack()
     {
-        Gas[] gases = FindObjectsOfType<Gas>();
+        Flammable[] gases = FindObjectsOfType<Flammable>();
         animator.SetTrigger("clap");
 
         foreach(Gas gas in gases)
         {
-            gas.ActiveGas();
+            gas.ActiveFlame();
         }
     }
 }
