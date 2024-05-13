@@ -10,6 +10,7 @@ TagManager:
   - cockpit_capitalLaser
   - Ground
   - Pushable
+  - Gas
   layers:
   - Default
   - TransparentFX

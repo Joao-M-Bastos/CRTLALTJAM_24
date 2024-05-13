@@ -119,7 +119,7 @@ public class PlayerScript : MonoBehaviour
 
     public void StartCharging()
     {
-        if (breath < 0)
+        if (breath <= 0)
             return;
 
         startedHolding = true;
