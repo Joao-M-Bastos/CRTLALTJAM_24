@@ -14,7 +14,6 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void OnStateFixedUpdade(PlayerStateManager stateManager, PlayerScript player)
     {
-        player.text.text = (int)player.PlayerRB.velocity.z + "";
 
         ManageAcelleration(player);
 
@@ -23,7 +22,11 @@ public class PlayerMoveState : PlayerBaseState
 
         player.PlayerRB.velocity += new Vector3(0, 0, player.aceleration * player.Speed);
 
-        //GravityController
+        ManageGravity(player);        
+    }
+
+    private void ManageGravity(PlayerScript player)
+    {
         if (player.PlayerRB.velocity.y < 2f)
         {
             player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 2f * Time.deltaTime;

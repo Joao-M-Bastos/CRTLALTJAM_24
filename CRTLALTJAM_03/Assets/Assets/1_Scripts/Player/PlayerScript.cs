@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
 {
     [SerializeField] int maxBreath;
     [SerializeField] int breath;
+    [SerializeField] int maxLife, life;
     float breathTemp;
     bool startedHolding;
     float timeHolding, jumpWallCooldown;
@@ -27,8 +28,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] LayerMask wallMask;
     PlayerStateManager stateManager;
 
-    public Text text;
-
     Rigidbody playerRB;
     Animator playerAnim;
 
@@ -41,7 +40,13 @@ public class PlayerScript : MonoBehaviour
         playerRB = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
         stateManager = GetComponent<PlayerStateManager>();
+        ResetValues();
+    }
+
+    public void ResetValues()
+    {
         breath = maxBreath;
+        life = maxLife;
     }
 
     public void Update()
@@ -60,6 +65,7 @@ public class PlayerScript : MonoBehaviour
             aceleration = 0;
         }
     }
+
 
     public bool IsOnGround()
     {
@@ -95,6 +101,40 @@ public class PlayerScript : MonoBehaviour
         else if (IsOnGround() || stateManager.CheckCurrentState(stateManager.WallState))
             breathTemp += 0.1f;
     }
+
+    #region Life
+    public void TakeDamage(int value)
+    {
+        if (value >= life)
+        {
+            GameManagerScrpt.GetInstance().GameOver();
+            life = 0;
+            return;
+        }
+        else
+        {
+            //TomarDanoFeedback
+            CancelWind();
+            life -= value;
+        }
+    }
+
+    public void Recover()
+    {
+        if (life >= maxLife)
+            life = maxLife;
+        else
+        {
+            //Recuperar vida feedback
+            life++;
+        }
+    }
+    public void TakeKnockback(Vector3 direction)
+    {
+
+    }
+
+    #endregion
 
     #region Wind
 
