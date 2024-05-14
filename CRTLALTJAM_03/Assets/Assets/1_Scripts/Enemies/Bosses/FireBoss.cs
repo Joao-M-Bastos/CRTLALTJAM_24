@@ -31,12 +31,12 @@ public class FireBoss : MonoBehaviour
 
     public void Attack()
     {
-        Flammable[] gases = FindObjectsOfType<Flammable>();
+        Flammable[] flammables = FindObjectsOfType<Flammable>();
         animator.SetTrigger("clap");
 
-        foreach(Gas gas in gases)
+        foreach(Flammable Flammable in flammables)
         {
-            gas.ActiveFlame();
+            Flammable.ActiveFlame(0);
         }
     }
 }

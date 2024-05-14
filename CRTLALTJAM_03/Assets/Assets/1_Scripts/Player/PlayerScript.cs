@@ -131,7 +131,15 @@ public class PlayerScript : MonoBehaviour
     }
     public void TakeKnockback(Vector3 direction)
     {
+        StartCoroutine(CleanKnockback());
+        playerRB.velocity = direction.normalized * 4;
+    }
 
+    private IEnumerator CleanKnockback()
+    {
+        playerRB.useGravity = false;
+        yield return new WaitForSeconds(0.4f);
+        PlayerRB.useGravity = true;
     }
 
     #endregion

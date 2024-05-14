@@ -9,8 +9,8 @@ public class PlayerDashState : PlayerBaseState
     public override void OnStateFinish(PlayerStateManager stateManager, PlayerScript player)
     {
         BoxCollider playerCollider = player.GetComponent<BoxCollider>();
-        playerCollider.size += Vector3.up * 0.5f;
-        playerCollider.center += Vector3.up * 0.5f;
+        playerCollider.size += Vector3.up * 1f;
+        playerCollider.center += Vector3.up * 1f;
 
         player.PlayerAnim.SetBool("dash", false);
 
@@ -28,8 +28,8 @@ public class PlayerDashState : PlayerBaseState
         player.PlayerAnim.SetBool("dash", true);
 
         BoxCollider playerCollider = player.GetComponent<BoxCollider>();
-        playerCollider.size += Vector3.up * -0.5f;
-        playerCollider.center += Vector3.up * -0.5f;
+        playerCollider.size += Vector3.up * -1f;
+        playerCollider.center += Vector3.up * -1f;
 
         activeDashTime = 0.5f;
     }

@@ -9,8 +9,7 @@ public class Gas : Flammable
     BoxCollider gasCollider;
     MeshRenderer meshRenderer;
 
-    float timeActive = 1;
-    bool fireActive;
+    
 
     private void Awake()
     {
@@ -25,13 +24,12 @@ public class Gas : Flammable
 
     private void Update()
     {
-        if (timeActive > 0 && fireActive)
-        {
-            timeActive -= Time.deltaTime;
-        }else if(timeActive <= 0 && fireActive)
-        {
-            DeactivateFlame();
-        }
+        CanDeactivateFlame();
+    }
+
+    public bool IsFireActive()
+    {
+        return fireActive;
     }
 
     public override void DeactivateFlame()
@@ -41,11 +39,20 @@ public class Gas : Flammable
         meshRenderer.material = gasMaterial;
     }
 
-    public override void ActiveFlame()
+    public override void ActiveFlame(float time)
     {
         fireActive = true;
-        timeActive = 1;
+        timeActive = baseActiveFlameTime + time;
         gasCollider.enabled = true;
         meshRenderer.material = fireMaterial;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.TryGetComponent(out PlayerScript player) && fireActive)
+        {
+            player.TakeDamage(1);
+            player.TakeKnockback(transform.forward);
+        }
     }
 }
