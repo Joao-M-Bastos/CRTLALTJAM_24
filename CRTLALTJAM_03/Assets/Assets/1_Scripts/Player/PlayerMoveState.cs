@@ -14,11 +14,10 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void OnStateFixedUpdade(PlayerStateManager stateManager, PlayerScript player)
     {
-
-        ManageAcelleration(player);
-
         if (player.PlayerRB.useGravity == false || player.JumpWallCooldown > 0)
             return;
+
+        ManageAcelleration(player);
 
         player.PlayerRB.velocity += new Vector3(0, 0, player.aceleration * player.Speed);
 

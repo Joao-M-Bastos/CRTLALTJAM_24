@@ -46,7 +46,6 @@ public class LitToyTank : Flammable
         if(collision.gameObject.TryGetComponent(out PlayerScript player))
         {
             player.TakeDamage(1);
-            player.TakeKnockback(player.transform.position - transform.position);
         }
     }
 

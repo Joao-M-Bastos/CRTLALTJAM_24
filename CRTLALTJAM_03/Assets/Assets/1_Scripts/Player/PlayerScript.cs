@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] int maxBreath;
     [SerializeField] int breath;
     [SerializeField] int maxLife, life;
-    float breathTemp;
+    float breathTemp, invulnerable;
     bool startedHolding;
     float timeHolding, jumpWallCooldown;
     [SerializeField] float speed;
@@ -52,10 +52,17 @@ public class PlayerScript : MonoBehaviour
     public void Update()
     {
         if (Mathf.Abs(playerRB.velocity.z) > 0.1f)
+        {
+            Quaternion oldWindRotation = windSpawner.transform.rotation;
             transform.LookAt(transform.position + Vector3.forward * MathF.Sign(playerRB.velocity.z));
+            windSpawner.transform.rotation = oldWindRotation;
+        }
 
         if (breath < maxBreath && !startedHolding)
             RechargeBreath();
+
+        if(invulnerable > 0)
+            invulnerable -= Time.deltaTime;
 
         if (jumpWallCooldown > 0)
             jumpWallCooldown -= Time.deltaTime;
@@ -105,6 +112,9 @@ public class PlayerScript : MonoBehaviour
     #region Life
     public void TakeDamage(int value)
     {
+        if (invulnerable > 0)
+            return;
+
         if (value >= life)
         {
             GameManagerScrpt.GetInstance().GameOver();
@@ -114,6 +124,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             //TomarDanoFeedback
+            invulnerable = 0.5f;
             CancelWind();
             life -= value;
         }
@@ -121,25 +132,13 @@ public class PlayerScript : MonoBehaviour
 
     public void Recover()
     {
-        if (life >= maxLife)
+        if (life >= maxLife - 1)
             life = maxLife;
         else
         {
             //Recuperar vida feedback
             life++;
         }
-    }
-    public void TakeKnockback(Vector3 direction)
-    {
-        StartCoroutine(CleanKnockback());
-        playerRB.velocity = direction.normalized * 4;
-    }
-
-    private IEnumerator CleanKnockback()
-    {
-        playerRB.useGravity = false;
-        yield return new WaitForSeconds(0.4f);
-        PlayerRB.useGravity = true;
     }
 
     #endregion

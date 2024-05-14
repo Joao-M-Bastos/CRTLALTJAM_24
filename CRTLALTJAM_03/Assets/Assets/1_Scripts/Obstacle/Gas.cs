@@ -35,7 +35,6 @@ public class Gas : Flammable
     public override void DeactivateFlame()
     {
         fireActive = false;
-        gasCollider.enabled = false;
         meshRenderer.material = gasMaterial;
     }
 
@@ -43,16 +42,16 @@ public class Gas : Flammable
     {
         fireActive = true;
         timeActive = baseActiveFlameTime + time;
-        gasCollider.enabled = true;
         meshRenderer.material = fireMaterial;
     }
 
-    private void OnTriggerEnter(Collider other)
+    
+
+    private void OnTriggerStay(Collider other)
     {
         if(other.TryGetComponent(out PlayerScript player) && fireActive)
         {
             player.TakeDamage(1);
-            player.TakeKnockback(transform.forward);
         }
     }
 }

@@ -20,6 +20,7 @@ public class PlayerInWallState : PlayerBaseState
     public override void OnStateStart(PlayerStateManager stateManager, PlayerScript player)
     {
         player.PlayerRB.velocity *= 0.5f;
+        player.aceleration = 0;
     }
 
     public override void OnStateUpdate(PlayerStateManager stateManager, PlayerScript player)

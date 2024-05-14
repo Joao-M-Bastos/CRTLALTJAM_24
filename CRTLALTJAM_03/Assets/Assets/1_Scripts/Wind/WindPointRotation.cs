@@ -13,6 +13,6 @@ public class WindPointRotation : MonoBehaviour
         mouse_pos.z = mouse_pos.z - object_pos.z;
         mouse_pos.y = mouse_pos.y - object_pos.y;
         float angle = Mathf.Atan2(mouse_pos.y, mouse_pos.z) * Mathf.Rad2Deg;
-        this.transform.rotation = Quaternion.Euler(new Vector3(-angle, 0, 0));
+        transform.rotation = Quaternion.Euler(new Vector3(-angle, 0, 0));
     }
 }
