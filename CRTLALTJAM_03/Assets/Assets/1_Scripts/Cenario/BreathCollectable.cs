@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LifeCollectable : MonoBehaviour
+public class BreathCollectable : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerScript player))
         {
-            if(player.Recover())
+            if (player.RecoverAllBreath())
                 Destroy(gameObject);
         }
     }

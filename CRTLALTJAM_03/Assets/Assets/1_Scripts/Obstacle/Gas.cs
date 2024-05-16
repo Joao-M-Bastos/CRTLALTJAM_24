@@ -43,8 +43,6 @@ public class Gas : Flammable
         meshRenderer.material = fireMaterial;
     }
 
-    
-
     private void OnTriggerStay(Collider other)
     {
         if(other.TryGetComponent(out PlayerScript player) && fireActive)
