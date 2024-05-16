@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScrpt : MonoBehaviour
 {
@@ -28,14 +29,26 @@ public class GameManagerScrpt : MonoBehaviour
     {
         if (gameOver)
         {
+            Debug.Log("b");
             if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("a");
                 ReestartGame();
+            }
         }
+    }
+
+    public void LoadScene(int id, string name = "")
+    {
+        if (name == "")
+            SceneManager.LoadScene(id);
+        else
+            SceneManager.LoadScene(name);
     }
 
     private void ReestartGame()
     {
-        canvasManager.ChangeState(CanvasStates.InGame);
+        LoadScene(0);
     }
 
     public void GameOver()
@@ -43,6 +56,7 @@ public class GameManagerScrpt : MonoBehaviour
         if (gameOver)
             return;
 
+        gameOver = true;
         Time.timeScale = 0;
         canvasManager.ChangeState(CanvasStates.GameOver);
     }

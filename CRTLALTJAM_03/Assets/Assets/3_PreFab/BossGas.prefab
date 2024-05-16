@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e4878c14519b514a970443488b08ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseActiveFlameTime: 0
+  baseActiveFlameTime: 0.5
   gasMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
   fireMaterial: {fileID: 2100000, guid: 871b880825871874f8c34ef033077787, type: 2}
   growScale: 1
