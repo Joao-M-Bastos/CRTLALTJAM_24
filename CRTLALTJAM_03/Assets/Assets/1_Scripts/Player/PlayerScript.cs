@@ -109,19 +109,6 @@ public class PlayerScript : MonoBehaviour
             breathTemp += 0.1f;
     }
 
-    public bool RecoverAllBreath()
-    {
-        bool recover = true;
-
-        if(breath >= maxBreath)
-            recover = false;
-        
-        breath = maxBreath;
-        breathTemp = 0;
-
-        return recover;
-    }
-
     #region Life
     public void TakeDamage(int value)
     {
@@ -165,7 +152,6 @@ public class PlayerScript : MonoBehaviour
 
     public void InstaciateWind(int id)
     {
-        breathTemp = 0;
         GameObject currentWind = Instantiate(winds[id], windSpawner);
         aceleration = currentWind.transform.forward.x;
 

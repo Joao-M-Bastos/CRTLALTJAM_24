@@ -8,8 +8,8 @@ public class LifeCollectable : MonoBehaviour
     {
         if (other.TryGetComponent(out PlayerScript player))
         {
-            if(player.Recover())
-                Destroy(gameObject);
+            player.Recover();
+            Destroy(gameObject);
         }
     }
 }

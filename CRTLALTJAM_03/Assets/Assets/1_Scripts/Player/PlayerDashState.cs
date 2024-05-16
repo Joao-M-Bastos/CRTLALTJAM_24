@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +10,7 @@ public class PlayerDashState : PlayerBaseState
     {
         BoxCollider playerCollider = player.GetComponent<BoxCollider>();
         playerCollider.size += Vector3.up * 1f;
-        playerCollider.center += Vector3.up * 0.5f;
+        playerCollider.center += Vector3.up * 1f;
 
         player.PlayerAnim.SetBool("dash", false);
 
@@ -30,15 +29,14 @@ public class PlayerDashState : PlayerBaseState
 
         BoxCollider playerCollider = player.GetComponent<BoxCollider>();
         playerCollider.size += Vector3.up * -1f;
-        playerCollider.center += Vector3.up * -0.5f;
+        playerCollider.center += Vector3.up * -1f;
 
         activeDashTime = 0.5f;
     }
 
     public override void OnStateUpdate(PlayerStateManager stateManager, PlayerScript player)
     {
-        //if (IsEmpyUpside(player) && activeDashTime < 0)
-        if (activeDashTime < 0 && IsEmpyUpside(player))
+        if (activeDashTime < 0)
             stateManager.ChanceState(stateManager.MoveState);
 
         activeDashTime -= Time.deltaTime;
@@ -48,18 +46,5 @@ public class PlayerDashState : PlayerBaseState
             player.PlayerRB.velocity += Vector3.up * player.JumpForce;
             stateManager.ChanceState(stateManager.MoveState);
         }
-    }
-
-    private bool IsEmpyUpside(PlayerScript player)
-    {
-        Debug.DrawLine(player.transform.position, player.transform.position + player.transform.up * 0.75f, Color.blue);
-
-        bool empty = true;
-        RaycastHit hit;
-        if (Physics.Raycast(player.transform.position, player.transform.up, out hit, 1.75f, player.WallMask))
-        {
-            empty = false;
-        }
-        return empty;
     }
 }
