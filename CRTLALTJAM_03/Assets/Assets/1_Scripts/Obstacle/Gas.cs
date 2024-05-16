@@ -6,7 +6,6 @@ public class Gas : Flammable
 {
     [SerializeField] Material gasMaterial, fireMaterial;
 
-    BoxCollider gasCollider;
     MeshRenderer meshRenderer;
 
     
@@ -14,7 +13,6 @@ public class Gas : Flammable
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-        gasCollider = GetComponent<BoxCollider>();
     }
 
     private void Start()

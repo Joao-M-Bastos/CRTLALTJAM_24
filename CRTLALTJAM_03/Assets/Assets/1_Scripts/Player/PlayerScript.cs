@@ -130,15 +130,20 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void Recover()
+    public bool Recover()
     {
+        bool able = false;
+
         if (life >= maxLife - 1)
             life = maxLife;
         else
         {
             //Recuperar vida feedback
+            able = true;
             life++;
         }
+
+        return able;
     }
 
     #endregion

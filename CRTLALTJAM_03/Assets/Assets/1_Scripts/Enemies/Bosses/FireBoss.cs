@@ -22,15 +22,15 @@ public class FireBoss : MonoBehaviour
     {
         if(attackTimeCooldown > 0)
             attackTimeCooldown -= Time.deltaTime;
-        else
-        {
-            attackTimeCooldown = baseAttackTimeCooldown;
-            Attack();
-        }
     }
 
     public void Attack()
     {
+        if (attackTimeCooldown > 0)
+            return;
+
+        attackTimeCooldown = 1;
+
         Flammable[] flammables = FindObjectsOfType<Flammable>();
         animator.SetTrigger("clap");
 
