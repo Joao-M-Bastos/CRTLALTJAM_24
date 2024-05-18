@@ -901,7 +901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossGas: {fileID: 8761053780839229442, guid: 8b1d824c3c4474242a7240c10bdcfbf9, type: 3}
   gasSpawnerTransform: {fileID: 496427543}
-  bossGasSize: 2
+  bossGasSize: 10
 --- !u!65 &742388940
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1034,8 +1034,8 @@ Transform:
   m_GameObject: {fileID: 856324313}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9914449, z: 0.13052624, w: 0}
-  m_LocalPosition: {x: 0, y: 0.542, z: -1.222}
-  m_LocalScale: {x: 0.91, y: 1.95, z: 1.0400001}
+  m_LocalPosition: {x: 0, y: 0.54, z: -1.04}
+  m_LocalScale: {x: 0.8, y: 1.6, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 819534530}
@@ -1220,7 +1220,8 @@ GameObject:
   - component: {fileID: 951333904}
   - component: {fileID: 951333907}
   - component: {fileID: 951333906}
-  - component: {fileID: 951333905}
+  - component: {fileID: 951333908}
+  - component: {fileID: 951333909}
   m_Layer: 0
   m_Name: PlayerChecker
   m_TagString: Untagged
@@ -1243,27 +1244,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 823546972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &951333905
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951333903}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 3, z: 3}
-  m_Center: {x: 0, y: 1, z: -2}
 --- !u!65 &951333906
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1283,8 +1263,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 3, z: 5}
-  m_Center: {x: 0, y: 1, z: 3}
+  m_Size: {x: 1, y: 3, z: 12}
+  m_Center: {x: 0, y: 1, z: 1}
 --- !u!33 &951333907
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1293,6 +1273,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951333903}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &951333908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951333903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec60c3c952b22c74694e8c339a02ed74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  litToyTank: {fileID: 1750302984}
+--- !u!54 &951333909
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951333903}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &993439969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,7 +1881,7 @@ Transform:
   m_GameObject: {fileID: 1355655990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.78, z: -25.63}
+  m_LocalPosition: {x: 0, y: 1.78, z: 4.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2186,13 +2206,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500115831}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.13052624, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 0.583, z: 1.171}
-  m_LocalScale: {x: 0.91, y: 1.95, z: 1.0400001}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: 0, y: 0.9914449, z: -0.13052616, w: 0}
+  m_LocalPosition: {x: 0, y: 0.54, z: 1.04}
+  m_LocalScale: {x: 0.8, y: 1.6, z: 0.8}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 819534530}
-  m_LocalEulerAnglesHint: {x: -15, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 180, z: 0}
 --- !u!114 &1500115833
 MonoBehaviour:
   m_ObjectHideFlags: 0

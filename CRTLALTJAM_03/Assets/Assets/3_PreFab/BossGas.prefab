@@ -132,7 +132,7 @@ MonoBehaviour:
   baseActiveFlameTime: 0.5
   gasMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
   fireMaterial: {fileID: 2100000, guid: 871b880825871874f8c34ef033077787, type: 2}
-  growScale: 1
+  BaseGrowScale: 2
 --- !u!65 &1750042452979994742
 BoxCollider:
   m_ObjectHideFlags: 0

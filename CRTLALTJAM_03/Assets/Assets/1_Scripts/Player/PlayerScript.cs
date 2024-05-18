@@ -137,7 +137,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             //TomarDanoFeedback
-            invulnerable = 0.5f;
+            invulnerable = 1f;
             CancelWind();
             life -= value;
         }
@@ -145,18 +145,18 @@ public class PlayerScript : MonoBehaviour
 
     public bool Recover()
     {
-        bool able = false;
 
-        if (life >= maxLife - 1)
+        if (life >= maxLife)
             life = maxLife;
         else
         {
             //Recuperar vida feedback
-            able = true;
+            
             life++;
+            return true;
         }
 
-        return able;
+        return false;
     }
 
     #endregion

@@ -24,6 +24,12 @@ public class PlayerDashState : PlayerBaseState
 
     public override void OnStateStart(PlayerStateManager stateManager, PlayerScript player)
     {
+        if (Mathf.Abs(player.PlayerRB.velocity.z) < player.Speed)
+        {
+            Debug.Log("a");
+            player.PlayerRB.velocity = new Vector3(0, player.PlayerRB.velocity.y, player.Speed * player.transform.forward.z);
+        }
+
         player.CancelWind();
 
         player.PlayerAnim.SetBool("dash", true);
@@ -31,6 +37,8 @@ public class PlayerDashState : PlayerBaseState
         BoxCollider playerCollider = player.GetComponent<BoxCollider>();
         playerCollider.size += Vector3.up * -1f;
         playerCollider.center += Vector3.up * -0.5f;
+
+        
 
         activeDashTime = 0.5f;
     }

@@ -9,7 +9,9 @@ public class BossGas : Flammable
     [SerializeField] Material gasMaterial, fireMaterial;
 
     MeshRenderer meshRenderer;
-    [SerializeField] float growScale;
+    [SerializeField] float BaseGrowScale;
+
+    float growScale;
 
 
     bool clapped;
@@ -17,6 +19,7 @@ public class BossGas : Flammable
 
     private void Awake()
     {
+        growScale = BaseGrowScale;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
@@ -26,7 +29,7 @@ public class BossGas : Flammable
         transform.localScale += Vector3.forward * Time.deltaTime * growScale;
         transform.Translate((Vector3.forward / 2) * Time.deltaTime * growScale);
 
-        if (timeInsideGas > 1 && !clapped)
+        if (timeInsideGas > 0.8f && !clapped)
             BossClap();
 
         CanDeactivateFlame();
@@ -41,6 +44,10 @@ public class BossGas : Flammable
     {
         fireActive = false;
         meshRenderer.material = gasMaterial;
+        growScale = BaseGrowScale;
+
+        timeInsideGas = 0;
+        clapped = false;
     }
 
     public override void ActiveFlame(float time)
@@ -48,6 +55,8 @@ public class BossGas : Flammable
         fireActive = true;
         timeActive = baseActiveFlameTime + time;
         meshRenderer.material = fireMaterial;
+
+        growScale = BaseGrowScale * 2;
     }
 
     private void BossClap()

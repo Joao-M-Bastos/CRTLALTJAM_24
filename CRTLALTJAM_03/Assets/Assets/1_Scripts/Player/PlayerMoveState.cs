@@ -100,7 +100,7 @@ public class PlayerMoveState : PlayerBaseState
             player.ReleaseWind();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Mathf.Abs(player.PlayerRB.velocity.y) + Mathf.Abs(player.PlayerRB.velocity.z) > player.Speed * 0.75f)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             stateManager.ChanceState(stateManager.DashState);
         }

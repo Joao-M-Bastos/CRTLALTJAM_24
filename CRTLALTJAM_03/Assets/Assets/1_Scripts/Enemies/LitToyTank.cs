@@ -22,18 +22,22 @@ public class LitToyTank : Flammable
 
     private void Update()
     {
-        if(!gasB.gameObject.activeSelf && playerPosition.position.x - transform.position.x > 0)
-            gasB.gameObject.SetActive(true);
-        else if(!gasA.gameObject.activeSelf && playerPosition.position.x - transform.position.x < 0)
-            gasA.gameObject.SetActive(true);
+        CanDeactivateFlame();
 
+        if (playerPosition == null)
+            return;
+
+        if (!gasB.gameObject.activeSelf && playerPosition.position.z - transform.position.z > 0)
+            gasB.gameObject.SetActive(true);
+        else if(!gasA.gameObject.activeSelf && playerPosition.position.z - transform.position.z < 0)
+            gasA.gameObject.SetActive(true);
 
         if (activeCooldown > 0)
             activeCooldown -= Time.deltaTime;
         else
             TryActivateGas(0);
         
-        CanDeactivateFlame();
+        
     }
 
     private void TryActivateGas(float time)
@@ -41,9 +45,9 @@ public class LitToyTank : Flammable
         if (playerPosition == null)
             return;
 
-        activeCooldown = 1f + time;
+        activeCooldown = 2f + time;
 
-        if (playerPosition.position.x - transform.position.x > 0)
+        if (playerPosition.position.z - transform.position.z > 0)
             gasB.ActiveFlame(time);
         else
             gasA.ActiveFlame(time);
@@ -66,11 +70,16 @@ public class LitToyTank : Flammable
             return;
 
         if (onGround)
-            tankRB.velocity = transform.forward * speed * Time.deltaTime * 0.3f;
+            tankRB.velocity += transform.forward * speed * Time.deltaTime * 0.7f;
 
-        if (playerPosition.position.x - transform.position.x < 0 && lookingRight)
+        if(Vector3.Distance(this.transform.position, playerPosition.position) < 1.8f)
+        {
+            tankRB.velocity = Vector3.zero;
+        }
+
+        if (playerPosition.position.z - transform.position.z < 0 && !lookingRight)
             Flip();
-        if (playerPosition.position.x - transform.position.x > 0 && !lookingRight)
+        if (playerPosition.position.z - transform.position.z > 0 && lookingRight)
             Flip();
     }
 
