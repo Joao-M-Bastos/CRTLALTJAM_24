@@ -51,6 +51,9 @@ public class PlayerDashState : PlayerBaseState
 
         activeDashTime -= Time.deltaTime;
 
+        if (player.isOnDialogue)
+            stateManager.ChanceState(stateManager.DialogueState);
+
         if (Input.GetKeyDown(KeyCode.Space) && player.IsOnGround())
         {
             player.PlayerRB.velocity += Vector3.up * player.JumpForce;
@@ -69,5 +72,7 @@ public class PlayerDashState : PlayerBaseState
             empty = false;
         }
         return empty;
+
+        
     }
 }

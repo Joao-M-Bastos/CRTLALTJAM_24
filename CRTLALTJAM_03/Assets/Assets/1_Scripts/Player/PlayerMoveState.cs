@@ -115,6 +115,9 @@ public class PlayerMoveState : PlayerBaseState
 
     private void TryChangeState(PlayerStateManager stateManager, PlayerScript player)
     {
+        if(player.isOnDialogue)
+            stateManager.ChanceState(stateManager.DialogueState);
+
         Debug.DrawLine(player.transform.position, player.transform.position + player.transform.forward * 0.75f, Color.red);
         RaycastHit hit;
         if(Physics.Raycast(player.transform.position, player.transform.forward, out hit, 0.75f, player.WallMask))

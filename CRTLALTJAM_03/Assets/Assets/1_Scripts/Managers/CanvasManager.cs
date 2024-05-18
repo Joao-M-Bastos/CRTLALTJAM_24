@@ -12,7 +12,11 @@ public class CanvasManager : MonoBehaviour
 {
     CanvasStates currentState;
 
-    [SerializeField] GameObject InGame, GameOver;
+    [SerializeField] GameObject InGame, GameOver, dialogueBox;
+
+    [SerializeField] Dialogue[] dialogues;
+
+    PlayerScript playerScript;
 
     private void Awake()
     {
@@ -26,5 +30,22 @@ public class CanvasManager : MonoBehaviour
         InGame.SetActive(currentState == CanvasStates.InGame);
 
         GameOver.SetActive(currentState == CanvasStates.GameOver);
+    }
+
+    public void PlayDialogue(int dialogueID, PlayerScript player)
+    {
+        playerScript = player;
+
+        playerScript.isOnDialogue = true;
+
+        ChangeState(CanvasStates.InGame);
+        dialogueBox.SetActive(true);
+        dialogues[dialogueID].StartDialogue(this);
+    }
+
+    public void StopDialogue()
+    {
+        dialogueBox.SetActive(false);
+        playerScript.isOnDialogue = false;
     }
 }

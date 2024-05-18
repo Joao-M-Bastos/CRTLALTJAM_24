@@ -10,10 +10,13 @@ public class PlayerStateManager : MonoBehaviour
     PlayerBaseState moveState = new PlayerMoveState();
     PlayerBaseState dashState = new PlayerDashState();
     PlayerBaseState wallState = new PlayerInWallState();
+    PlayerBaseState dialogueState = new PlayerDialogueState();
 
     public PlayerBaseState MoveState => moveState;
     public PlayerBaseState DashState => dashState;
     public PlayerBaseState WallState => wallState;
+
+    public PlayerBaseState DialogueState => dialogueState;
 
     public void Awake()
     {

@@ -29,13 +29,12 @@ public class GameManagerScrpt : MonoBehaviour
     {
         if (gameOver)
         {
-            Debug.Log("b");
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("a");
                 ReestartGame();
             }
         }
+
     }
 
     public void LoadScene(int id, string name = "")
@@ -59,5 +58,10 @@ public class GameManagerScrpt : MonoBehaviour
         gameOver = true;
         Time.timeScale = 0;
         canvasManager.ChangeState(CanvasStates.GameOver);
+    }
+
+    public void PlayDialogue(int dialogueID, PlayerScript player)
+    {
+        canvasManager.PlayDialogue(dialogueID, player); 
     }
 }

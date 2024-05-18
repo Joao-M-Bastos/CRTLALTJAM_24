@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] int maxLife, life;
     float breathTemp, invulnerable;
     bool startedHolding;
+    public bool isOnDialogue;
     float timeHolding, jumpWallCooldown;
     [SerializeField] float speed;
     public float aceleration;

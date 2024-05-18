@@ -7,7 +7,12 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField] GameObject PlayerPrefab;
     void Start()
     {
-        if (GameObject.FindGameObjectsWithTag("Player").Length > 0) return;
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>().ResetValues();
+            GameObject.FindGameObjectWithTag("Player").transform.position = transform.position;
+            return;
+        }
 
         Instantiate(PlayerPrefab, transform.position, transform.rotation);
     }
