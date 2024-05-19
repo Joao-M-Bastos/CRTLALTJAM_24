@@ -48,6 +48,7 @@ public class GameManagerScrpt : MonoBehaviour
     private void ReestartGame()
     {
         LoadScene(0);
+        gameOver = false;
         Time.timeScale = 1;
         canvasManager.ChangeState(CanvasStates.InGame);
 

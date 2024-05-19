@@ -14,7 +14,8 @@ public class PlayerScript : MonoBehaviour
     bool startedHolding;
     public bool isOnDialogue;
     float timeHolding, jumpWallCooldown;
-    [SerializeField] float speed;
+    [SerializeField] float speed, coyoteTime;
+    float coyoteTimeCounter;
     public float aceleration;
     [Range(1, 10)][SerializeField] float jumpForce;
 
@@ -126,7 +127,7 @@ public class PlayerScript : MonoBehaviour
     #region Life
     public void TakeDamage(int value)
     {
-        if (invulnerable > 0)
+        if (invulnerable > 0 || stateManager.CheckCurrentState(stateManager.DashState))
             return;
 
         if (value >= life)
