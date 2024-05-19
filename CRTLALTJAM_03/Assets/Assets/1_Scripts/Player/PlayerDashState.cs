@@ -54,8 +54,11 @@ public class PlayerDashState : PlayerBaseState
         if (player.isOnDialogue)
             stateManager.ChanceState(stateManager.DialogueState);
 
-        if (Input.GetKeyDown(KeyCode.Space) && player.IsOnGround())
+        if (player.jumpBufferTime > 0 && player.coyoteTimeCounter > 0)
         {
+            player.coyoteTimeCounter = 0;
+            player.jumpBufferTime = 0;
+
             player.PlayerRB.velocity += Vector3.up * player.JumpForce;
             stateManager.ChanceState(stateManager.MoveState);
         }

@@ -105,8 +105,11 @@ public class PlayerMoveState : PlayerBaseState
             stateManager.ChanceState(stateManager.DashState);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && player.IsOnGround())
+        if (player.jumpBufferTime > 0 && player.coyoteTimeCounter > 0)
         {
+            player.jumpBufferTime = 0;
+
+            player.coyoteTimeCounter = 0;
             player.PlayerRB.velocity += Vector3.up * player.JumpForce;
         }
 

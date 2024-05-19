@@ -14,14 +14,19 @@ public class PlayerScript : MonoBehaviour
     bool startedHolding;
     public bool isOnDialogue;
     float timeHolding, jumpWallCooldown;
-    [SerializeField] float speed, coyoteTime;
-    float coyoteTimeCounter;
+    [SerializeField] float speed;
+
+    public float coyoteTimeCounter;
+    float coyoteTime =0.1f;
+
+    public float jumpBufferTime;
+    float jumpBuffer = 0.2f;
+
     public float aceleration;
     [Range(1, 10)][SerializeField] float jumpForce;
 
     public float Speed => speed;
     public float JumpForce => jumpForce;
-
     public float JumpWallCooldown => jumpWallCooldown;
 
     [SerializeField] Transform windSpawner;
@@ -60,6 +65,11 @@ public class PlayerScript : MonoBehaviour
             windSpawner.transform.rotation = oldWindRotation;
         }
 
+        if (IsOnGround())
+            coyoteTimeCounter = coyoteTime;
+        else
+        coyoteTimeCounter -= Time.deltaTime;
+
         if (breath < maxBreath && !startedHolding)
             RechargeBreath();
 
@@ -72,6 +82,14 @@ public class PlayerScript : MonoBehaviour
         {
             jumpWallCooldown = 0;
             aceleration = 0;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpBufferTime = jumpBuffer;
+        }else
+        {
+            jumpBufferTime -= Time.deltaTime;
         }
     }
 
@@ -181,8 +199,10 @@ public class PlayerScript : MonoBehaviour
         if(!onGround)
             PlayerRB.useGravity = false;
         yield return new WaitForSeconds(0.3f);
-        Destroy(newWind);
         PlayerRB.useGravity = true;
+        yield return new WaitForSeconds(7f);
+        Destroy(newWind);
+        
     }
 
     public void StartCharging()
