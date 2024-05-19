@@ -60,13 +60,13 @@ public class PlayerMoveState : PlayerBaseState
         }
         else
         {
-            if (Mathf.Abs(player.PlayerRB.velocity.z) < 8 && Mathf.Abs(player.aceleration) < 0.1f)
+            if (Mathf.Abs(player.PlayerRB.velocity.z) < player.Speed && Mathf.Abs(player.aceleration) < 0.1f)
             {
                 player.aceleration += Input.GetAxisRaw("Horizontal") * (baseMultiplier - 2) * Time.deltaTime;
             }
 
 
-            if (Mathf.Abs(player.PlayerRB.velocity.z) > 8)
+            if (Mathf.Abs(player.PlayerRB.velocity.z) > player.Speed)
             {
                 player.aceleration = 0;
                 if (player.IsOnGround())
