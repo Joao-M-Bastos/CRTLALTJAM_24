@@ -70,7 +70,7 @@ public class GameManagerScrpt : MonoBehaviour
         canvasManager.ChangeState(CanvasStates.GameOver);
     }
 
-    public void OnWillRenderObject()
+    public void AddKey()
     {
         hasKey = true;
     }
