@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Actual game/Level 1.unity
     guid: add88453856e3034ab9eee6134362643
+  - enabled: 1
+    path: Assets/Scenes/Actual game/Level 1 Reverce.unity
+    guid: 492780c2f11d365458144e3805a25ffb
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 290a6e6411d135049940bec2237b8938, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
