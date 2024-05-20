@@ -8,9 +8,12 @@ public class GameManagerScrpt : MonoBehaviour
 {
     [SerializeField] CanvasManager canvasManager;
 
-    bool gameOver;
+    bool gameOver, hasKey;
 
     static GameManagerScrpt instance;
+
+    public bool HasKey => hasKey;
+    public bool IsGameOver => gameOver;
 
     public static GameManagerScrpt GetInstance()
     {
@@ -62,6 +65,11 @@ public class GameManagerScrpt : MonoBehaviour
         gameOver = true;
         Time.timeScale = 0;
         canvasManager.ChangeState(CanvasStates.GameOver);
+    }
+
+    public void OnWillRenderObject()
+    {
+        hasKey = true;
     }
 
     public void PlayDialogue(int dialogueID, PlayerScript player)

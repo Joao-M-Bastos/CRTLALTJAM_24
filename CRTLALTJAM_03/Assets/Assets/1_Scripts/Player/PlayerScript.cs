@@ -200,7 +200,8 @@ public class PlayerScript : MonoBehaviour
             PlayerRB.useGravity = false;
         yield return new WaitForSeconds(0.3f);
         PlayerRB.useGravity = true;
-        yield return new WaitForSeconds(7f);
+        aceleration = 0;
+        yield return new WaitForSeconds(0.7f);
         Destroy(newWind);
         
     }

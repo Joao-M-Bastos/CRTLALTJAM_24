@@ -9,8 +9,11 @@ public class PlayerSpawner : MonoBehaviour
     {
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>().ResetValues();
-            GameObject.FindGameObjectWithTag("Player").transform.position = transform.position;
+            if (GameManagerScrpt.GetInstance().IsGameOver)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>().ResetValues();
+                GameObject.FindGameObjectWithTag("Player").transform.position = transform.position;
+            }
             return;
         }
 
