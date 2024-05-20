@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Actual game/Level 1.unity
     guid: add88453856e3034ab9eee6134362643
   - enabled: 1
+    path: Assets/Scenes/Actual game/Level 2.unity
+    guid: 745539a2cbdcddf4687142f76c633706
+  - enabled: 1
+    path: Assets/Scenes/Actual game/Level 3.unity
+    guid: 75981dc924bdab242ad3454b5d05409c
+  - enabled: 1
     path: Assets/Scenes/Actual game/Level 1 Reverce.unity
     guid: 492780c2f11d365458144e3805a25ffb
   m_configObjects:

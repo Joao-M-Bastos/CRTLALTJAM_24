@@ -8,14 +8,8 @@ public class PlayerSpawner : MonoBehaviour
     void Start()
     {
         if (GameObject.FindGameObjectWithTag("Player") != null)
-        {
-            if (GameManagerScrpt.GetInstance().IsGameOver)
-            {
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>().ResetValues();
-                GameObject.FindGameObjectWithTag("Player").transform.position = transform.position;
-            }
-            return;
-        }
+            GameObject.FindGameObjectWithTag("Player");
+        
 
         Instantiate(PlayerPrefab, transform.position, transform.rotation);
     }

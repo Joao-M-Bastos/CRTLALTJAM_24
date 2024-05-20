@@ -52,6 +52,7 @@ public class PlayerScript : MonoBehaviour
 
     public void ResetValues()
     {
+        maxLife = 1;
         breath = maxBreath;
         life = maxLife;
         GameManagerScrpt.GetInstance().canvasManager.SetLifeUI(life);
