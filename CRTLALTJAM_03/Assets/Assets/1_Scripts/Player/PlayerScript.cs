@@ -52,10 +52,11 @@ public class PlayerScript : MonoBehaviour
 
     public void ResetValues()
     {
-        maxLife = 1;
+        maxBreath = 1;
         breath = maxBreath;
         life = maxLife;
         GameManagerScrpt.GetInstance().canvasManager.SetLifeUI(life);
+        GameManagerScrpt.GetInstance().canvasManager.SetBreathUI(breath);
     }
 
     public void Update()
@@ -126,6 +127,9 @@ public class PlayerScript : MonoBehaviour
             GameManagerScrpt.GetInstance().canvasManager.SetBreathUI(breath);
         }
 
+        if (breath == maxBreath)
+            return;
+
         if (breathTemp != 0)
         {
             
@@ -133,7 +137,6 @@ public class PlayerScript : MonoBehaviour
         }
         else if (IsOnGround() || stateManager.CheckCurrentState(stateManager.WallState))
         {
-            
             GameManagerScrpt.GetInstance().canvasManager.PlayBreathUI(breath + 1);
             breathTemp += 0.1f;
         }
@@ -228,7 +231,7 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         PlayerRB.useGravity = true;
         aceleration = 0;
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.5f);
         Destroy(newWind);
         
     }
