@@ -83,6 +83,7 @@ public class CanvasManager : MonoBehaviour
     {
         if (value > breath.Length)
             return;
+        Debug.Log(value);
         value -= 1;
         breath[value].SetActive(true);
         breath[value].GetComponent<Animator>().SetTrigger("Charge");

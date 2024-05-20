@@ -26,7 +26,6 @@ public class PlayerDashState : PlayerBaseState
     {
         if (Mathf.Abs(player.PlayerRB.velocity.z) < player.Speed)
         {
-            Debug.Log("a");
             player.PlayerRB.velocity = new Vector3(0, player.PlayerRB.velocity.y, player.Speed * player.transform.forward.z);
         }
 
