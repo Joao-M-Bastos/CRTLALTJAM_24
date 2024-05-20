@@ -15,7 +15,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] GameObject InGame, GameOver, dialogueBox;
 
     [SerializeField] Dialogue[] dialogues;
-    [SerializeField] GameObject[] hearts;
+    [SerializeField] GameObject[] hearts, breath;
 
     PlayerScript playerScript;
 
@@ -62,5 +62,29 @@ public class CanvasManager : MonoBehaviour
         {
             hearts[i].SetActive(true);
         }
+    }
+
+    public void SetBreathUI(int value)
+    {
+
+        if (value > breath.Length)
+            return;
+
+        foreach (GameObject h in breath)
+            h.SetActive(false);
+
+        for (int i = 0; i < value; i++)
+        {
+            breath[i].SetActive(true);
+        }
+    }
+
+    public void PlayBreathUI(int value)
+    {
+        if (value > breath.Length)
+            return;
+        value -= 1;
+        breath[value].SetActive(true);
+        breath[value].GetComponent<Animator>().SetTrigger("Charge");
     }
 }

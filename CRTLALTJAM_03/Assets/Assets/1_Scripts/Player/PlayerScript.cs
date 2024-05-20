@@ -122,12 +122,20 @@ public class PlayerScript : MonoBehaviour
         {
             breathTemp = 0;
             breath += 1;
+            GameManagerScrpt.GetInstance().canvasManager.SetBreathUI(breath);
         }
 
         if (breathTemp != 0)
+        {
+            
             breathTemp += Time.deltaTime;
+        }
         else if (IsOnGround() || stateManager.CheckCurrentState(stateManager.WallState))
+        {
+            
+            GameManagerScrpt.GetInstance().canvasManager.PlayBreathUI(breath + 1);
             breathTemp += 0.1f;
+        }
     }
 
     public bool RecoverAllBreath()
@@ -139,13 +147,15 @@ public class PlayerScript : MonoBehaviour
         
         breath = maxBreath;
         breathTemp = 0;
-        
+
+        GameManagerScrpt.GetInstance().canvasManager.SetBreathUI(breath);
+
         return recover;
     }
 
     public void AddBreath()
     {
-        maxBreath ++;
+        maxBreath++;
     }
 
     #region Life
@@ -247,12 +257,16 @@ public class PlayerScript : MonoBehaviour
         breath -= Mathf.RoundToInt(Mathf.Ceil(timeHolding));
         timeHolding = 0;
         startedHolding = false;
+
+        GameManagerScrpt.GetInstance().canvasManager.SetBreathUI(breath);
     }
 
     public void ReleaseWind()
     {
         if(!onGround)
             breath -= Mathf.RoundToInt(Mathf.Ceil(timeHolding));
+
+        GameManagerScrpt.GetInstance().canvasManager.SetBreathUI(breath);
 
         startedHolding = false;
 
