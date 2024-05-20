@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScrpt : MonoBehaviour
 {
-    [SerializeField] CanvasManager canvasManager;
+    [SerializeField] public CanvasManager canvasManager;
 
     bool gameOver, hasKey;
 
@@ -51,6 +51,9 @@ public class GameManagerScrpt : MonoBehaviour
     private void ReestartGame()
     {
         LoadScene(0);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>().ResetValues();
+
+
         gameOver = false;
         Time.timeScale = 1;
         canvasManager.ChangeState(CanvasStates.InGame);

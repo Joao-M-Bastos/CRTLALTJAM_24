@@ -54,6 +54,7 @@ public class PlayerScript : MonoBehaviour
     {
         breath = maxBreath;
         life = maxLife;
+        GameManagerScrpt.GetInstance().canvasManager.SetLifeUI(life);
     }
 
     public void Update()
@@ -138,8 +139,13 @@ public class PlayerScript : MonoBehaviour
         
         breath = maxBreath;
         breathTemp = 0;
-
+        
         return recover;
+    }
+
+    public void AddBreath()
+    {
+        maxBreath ++;
     }
 
     #region Life
@@ -161,6 +167,8 @@ public class PlayerScript : MonoBehaviour
             CancelWind();
             life -= value;
         }
+
+        GameManagerScrpt.GetInstance().canvasManager.SetLifeUI(life);
     }
 
     public bool Recover()
@@ -173,10 +181,18 @@ public class PlayerScript : MonoBehaviour
             //Recuperar vida feedback
             
             life++;
+            GameManagerScrpt.GetInstance().canvasManager.SetLifeUI(life);
             return true;
         }
 
         return false;
+    }
+
+    public void AddMaxLife()
+    {
+        life++;
+        maxLife++;
+        GameManagerScrpt.GetInstance().canvasManager.SetLifeUI(life);
     }
 
     #endregion

@@ -15,6 +15,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] GameObject InGame, GameOver, dialogueBox;
 
     [SerializeField] Dialogue[] dialogues;
+    [SerializeField] GameObject[] hearts;
 
     PlayerScript playerScript;
 
@@ -47,5 +48,19 @@ public class CanvasManager : MonoBehaviour
     {
         dialogueBox.SetActive(false);
         playerScript.isOnDialogue = false;
+    }
+
+    public void SetLifeUI(int value)
+    {
+        if (value > hearts.Length)
+            return;
+
+        foreach (GameObject h in hearts)
+            h.SetActive(false);
+
+        for (int i = 0; i < value; i++)
+        {
+            hearts[i].SetActive(true);
+        }
     }
 }
