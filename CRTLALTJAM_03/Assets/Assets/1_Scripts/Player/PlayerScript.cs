@@ -7,13 +7,13 @@ using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] int maxBreath;
-    [SerializeField] int breath;
-    [SerializeField] int maxLife, life;
-    float breathTemp, invulnerable;
-    bool startedHolding;
+    [SerializeField] int maxBreath, breath, maxLife, life;
+
+    float breathTemp, invulnerableTemp,timeHolding, jumpWallCooldown;
+    bool hasStartedHolding;
+
     public bool isOnDialogue;
-    float timeHolding, jumpWallCooldown;
+
     [SerializeField] float speed;
 
     public float coyoteTimeCounter;
@@ -41,6 +41,9 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody PlayerRB => playerRB;
     public Animator PlayerAnim => playerAnim;
     public LayerMask WallMask => wallMask;
+
+
+    public Text text;
 
     public void Awake()
     {
@@ -73,11 +76,11 @@ public class PlayerScript : MonoBehaviour
         else
         coyoteTimeCounter -= Time.deltaTime;
 
-        if (breath < maxBreath && !startedHolding)
+        if (breath < maxBreath && !hasStartedHolding)
             RechargeBreath();
 
-        if(invulnerable > 0)
-            invulnerable -= Time.deltaTime;
+        if(invulnerableTemp > 0)
+            invulnerableTemp -= Time.deltaTime;
 
         if (jumpWallCooldown > 0)
             jumpWallCooldown -= Time.deltaTime;
@@ -165,7 +168,7 @@ public class PlayerScript : MonoBehaviour
     #region Life
     public void TakeDamage(int value)
     {
-        if (invulnerable > 0 || stateManager.CheckCurrentState(stateManager.DashState))
+        if (invulnerableTemp > 0 || stateManager.CheckCurrentState(stateManager.DashState))
             return;
 
         if (value >= life)
@@ -177,7 +180,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             //TomarDanoFeedback
-            invulnerable = 1f;
+            invulnerableTemp = 1f;
             CancelWind();
             life -= value;
         }
@@ -241,12 +244,12 @@ public class PlayerScript : MonoBehaviour
         if (breath <= 0)
             return;
 
-        startedHolding = true;
+        hasStartedHolding = true;
     }
 
     public void ChargeWind()
     {
-        if (!startedHolding)
+        if (!hasStartedHolding)
             return;
         timeHolding += Time.deltaTime;
 
@@ -260,7 +263,7 @@ public class PlayerScript : MonoBehaviour
         breathTemp = 0;
         breath -= Mathf.RoundToInt(Mathf.Ceil(timeHolding));
         timeHolding = 0;
-        startedHolding = false;
+        hasStartedHolding = false;
 
         GameManagerScrpt.GetInstance().canvasManager.SetBreathUI(breath);
     }
@@ -272,7 +275,7 @@ public class PlayerScript : MonoBehaviour
 
         GameManagerScrpt.GetInstance().canvasManager.SetBreathUI(breath);
 
-        startedHolding = false;
+        hasStartedHolding = false;
 
         if (timeHolding == 0)
             return;

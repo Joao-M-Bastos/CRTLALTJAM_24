@@ -22,6 +22,8 @@ public class PlayerMoveState : PlayerBaseState
         player.PlayerRB.velocity += new Vector3(0, 0, player.aceleration * player.Speed);
 
         ManageGravity(player);        
+
+        player.text.text = player.aceleration.ToString();
     }
 
     private void ManageGravity(PlayerScript player)
@@ -42,9 +44,6 @@ public class PlayerMoveState : PlayerBaseState
 
         if (!player.IsOnGround())
             baseMultiplier = 3;
-
-        if (player.PlayerRB.useGravity == false && player.JumpWallCooldown > 0)
-            return;
 
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
