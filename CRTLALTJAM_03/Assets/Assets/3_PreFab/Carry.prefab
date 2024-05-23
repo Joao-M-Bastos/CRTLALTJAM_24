@@ -100,7 +100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300983700970948139}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.023531051, y: -0.7067151, z: -0.02353105, w: 0.70671517}
+  m_LocalRotation: {x: -0.023531055, y: -0.70671517, z: -0.023531057, w: 0.7067151}
   m_LocalPosition: {x: 15, y: 1.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1007,10 +1007,9 @@ MonoBehaviour:
   maxLife: 3
   life: 0
   isOnDialogue: 0
-  speed: 10
+  aceleration: 10
   coyoteTimeCounter: 0
   jumpBufferTime: 0
-  aceleration: 0
   jumpForce: 8.5
   windSpawner: {fileID: 2114576712522127585}
   winds:
@@ -1478,7 +1477,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516515336320395657}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.023531051, y: -0.7067151, z: -0.02353105, w: 0.70671517}
+  m_LocalRotation: {x: -0.023531055, y: -0.70671517, z: -0.023531057, w: 0.7067151}
   m_LocalPosition: {x: 15, y: 1.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

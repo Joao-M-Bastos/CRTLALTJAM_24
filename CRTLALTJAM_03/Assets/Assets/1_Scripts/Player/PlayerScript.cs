@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour
 
     public bool isOnDialogue;
 
-    [SerializeField] float speed;
+    [SerializeField] float aceleration;
 
     public float coyoteTimeCounter;
     float coyoteTime =0.1f;
@@ -22,10 +22,17 @@ public class PlayerScript : MonoBehaviour
     public float jumpBufferTime;
     float jumpBuffer = 0.2f;
 
-    public float aceleration;
+
+    float internalAceleration;
+    public float InternalAceleration => internalAceleration;
+
+    public void SetInternalAceleration(float value) {  internalAceleration = value; }
+    public void ChangeInternalAceleration(float value) { internalAceleration += value; }
+
+
     [Range(1, 10)][SerializeField] float jumpForce;
 
-    public float Speed => speed;
+    public float Aceleration => aceleration;
     public float JumpForce => jumpForce;
     public float JumpWallCooldown => jumpWallCooldown;
 

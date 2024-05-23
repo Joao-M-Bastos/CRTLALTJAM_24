@@ -20,7 +20,7 @@ public class PlayerInWallState : PlayerBaseState
     public override void OnStateStart(PlayerStateManager stateManager, PlayerScript player)
     {
         player.PlayerRB.velocity *= 0.5f;
-        player.aceleration = 0;
+        player.SetInternalAceleration(0);
     }
 
     public override void OnStateUpdate(PlayerStateManager stateManager, PlayerScript player)
@@ -42,7 +42,7 @@ public class PlayerInWallState : PlayerBaseState
             player.ReleaseWind();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Mathf.Abs(player.PlayerRB.velocity.y) + Mathf.Abs(player.PlayerRB.velocity.z) < player.Speed * 0.75f)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Mathf.Abs(player.PlayerRB.velocity.y) + Mathf.Abs(player.PlayerRB.velocity.z) < player.Aceleration * 0.75f)
         {
             stateManager.ChanceState(stateManager.DashState);
         }

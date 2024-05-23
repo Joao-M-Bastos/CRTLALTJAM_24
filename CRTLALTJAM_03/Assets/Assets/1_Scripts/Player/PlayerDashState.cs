@@ -24,9 +24,9 @@ public class PlayerDashState : PlayerBaseState
 
     public override void OnStateStart(PlayerStateManager stateManager, PlayerScript player)
     {
-        if (Mathf.Abs(player.PlayerRB.velocity.z) < player.Speed)
+        if (Mathf.Abs(player.PlayerRB.velocity.z) < player.Aceleration)
         {
-            player.PlayerRB.velocity = new Vector3(0, player.PlayerRB.velocity.y, player.Speed * player.transform.forward.z);
+            player.PlayerRB.velocity = new Vector3(0, player.PlayerRB.velocity.y, player.Aceleration * player.transform.forward.z);
         }
 
         player.CancelWind();

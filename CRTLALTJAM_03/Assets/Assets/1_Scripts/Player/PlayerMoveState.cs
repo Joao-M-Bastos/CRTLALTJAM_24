@@ -19,11 +19,13 @@ public class PlayerMoveState : PlayerBaseState
 
         ManageAcelleration(player);
 
-        player.PlayerRB.velocity += new Vector3(0, 0, player.aceleration * player.Speed);
+        player.PlayerRB.velocity += new Vector3(0, 0, player.InternalAceleration * player.Aceleration);
+
+        Debug.Log(player.PlayerRB.velocity.z + " : " + player.InternalAceleration * player.Aceleration);
 
         ManageGravity(player);        
 
-        player.text.text = player.aceleration.ToString();
+        player.text.text = player.Aceleration.ToString();
     }
 
     private void ManageGravity(PlayerScript player)
@@ -45,35 +47,36 @@ public class PlayerMoveState : PlayerBaseState
         if (!player.IsOnGround())
             baseMultiplier = 3;
 
+        //Zera a aceleração para ser recalculada
+        
+
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
-            player.aceleration = 0;
+            player.SetInternalAceleration(0);
 
-            player.aceleration -= Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
-
-            if (Mathf.Abs(player.PlayerRB.velocity.z) < 1f)
-            {
-                player.aceleration = 0;
+            if (Mathf.Abs(player.PlayerRB.velocity.z) > 0.9f)
+                player.ChangeInternalAceleration( -1 *Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime);
+            else    
                 player.PlayerRB.velocity = new Vector3(0, player.PlayerRB.velocity.y, 0);
-            }
         }
         else
         {
-            if (Mathf.Abs(player.PlayerRB.velocity.z) < player.Speed && Mathf.Abs(player.aceleration) < 0.1f)
+            if (Mathf.Abs(player.PlayerRB.velocity.z) < player.Aceleration)
             {
-                player.aceleration += Input.GetAxisRaw("Horizontal") * (baseMultiplier - 2) * Time.deltaTime;
+                player.ChangeInternalAceleration(Input.GetAxisRaw("Horizontal") * (baseMultiplier - 2) * Time.deltaTime);
             }
 
 
-            if (Mathf.Abs(player.PlayerRB.velocity.z) > player.Speed)
+            if (Mathf.Abs(player.PlayerRB.velocity.z) > player.Aceleration)
             {
-                player.aceleration = 0;
                 if (player.IsOnGround())
-                    player.aceleration -= Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
+                    player.ChangeInternalAceleration(-1 * Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime);
             }
 
             if (Mathf.Sign(player.PlayerRB.velocity.z) != Mathf.Sign(Input.GetAxisRaw("Horizontal")))
-                player.aceleration -= Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime;
+            {
+                player.ChangeInternalAceleration(-1 * Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime);
+            }
         }
     }
 
