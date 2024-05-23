@@ -8,7 +8,8 @@ public class PlayerSpawner : MonoBehaviour
     void Start()
     {
         if (GameObject.FindGameObjectWithTag("Player") != null)
-            Destroy(GameObject.FindGameObjectWithTag("Player").GetComponentInParent<GameManagerScrpt>().gameObject);
+            return;
+            //Destroy(GameObject.FindGameObjectWithTag("Player").GetComponentInParent<GameManagerScrpt>().gameObject);
         
 
         Instantiate(PlayerPrefab, transform.position, transform.rotation);

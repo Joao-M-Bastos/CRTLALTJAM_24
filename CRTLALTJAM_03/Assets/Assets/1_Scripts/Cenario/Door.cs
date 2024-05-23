@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] int levelId;
+    [SerializeField] string levelName;
+    [SerializeField] int keyID;
     [SerializeField] bool needsKey, isEntrance, isExit;
 
     [SerializeField] Transform putPlayerPosition;
@@ -28,19 +29,19 @@ public class Door : MonoBehaviour
         if (playerInside == null)
             return;
 
-        if (needsKey && !GameManagerScrpt.GetInstance().HasKey)
+        if (needsKey && GameManagerScrpt.GetInstance().HasKey != keyID)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Space) && isEntrance)
+        if (Input.GetKeyDown(KeyCode.Space) && isExit)
         {
             playerInside.PlayerRB.velocity = Vector3.zero;
-            GameManagerScrpt.GetInstance().LoadScene(levelId);
+            GameManagerScrpt.GetInstance().LoadScene(1, levelName);
         }
     }
 
     private void OnLevelWasLoaded(int level)
     {
-        if (!isExit)
+        if (!isEntrance)
             return;
 
         PlayerScript player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();

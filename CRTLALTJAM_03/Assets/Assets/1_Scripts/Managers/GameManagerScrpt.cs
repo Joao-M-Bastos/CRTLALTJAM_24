@@ -8,11 +8,13 @@ public class GameManagerScrpt : MonoBehaviour
 {
     [SerializeField] public CanvasManager canvasManager;
 
-    bool gameOver, hasKey;
+    bool gameOver;
+
+    int hasKey;
 
     static GameManagerScrpt instance;
 
-    public bool HasKey => hasKey;
+    public int HasKey => hasKey;
     public bool IsGameOver => gameOver;
 
     public static GameManagerScrpt GetInstance()
@@ -72,7 +74,7 @@ public class GameManagerScrpt : MonoBehaviour
 
     public void AddKey()
     {
-        hasKey = true;
+        hasKey++;
     }
 
     public void PlayDialogue(int dialogueID, PlayerScript player)
