@@ -21,7 +21,7 @@ public class PlayerMoveState : PlayerBaseState
 
         player.PlayerRB.velocity += new Vector3(0, 0, player.InternalAceleration * player.Aceleration);
 
-        Debug.Log(player.PlayerRB.velocity.z + " : " + player.InternalAceleration * player.Aceleration);
+        Debug.Log(player.PlayerRB.velocity.z + " : " + player.InternalAceleration + " : "+ player.Aceleration);
 
         ManageGravity(player);        
 
