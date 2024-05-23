@@ -16,6 +16,8 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] float aceleration;
 
+    public float Aceleration => aceleration;
+
     public float coyoteTimeCounter;
     float coyoteTime =0.1f;
 
@@ -32,7 +34,7 @@ public class PlayerScript : MonoBehaviour
 
     [Range(1, 10)][SerializeField] float jumpForce;
 
-    public float Aceleration => aceleration;
+    
     public float JumpForce => jumpForce;
     public float JumpWallCooldown => jumpWallCooldown;
 
@@ -94,7 +96,7 @@ public class PlayerScript : MonoBehaviour
         else if(jumpWallCooldown < 0)
         {
             jumpWallCooldown = 0;
-            aceleration = 0;
+            internalAceleration = 0;
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -122,7 +124,7 @@ public class PlayerScript : MonoBehaviour
         if (value)
         {
             jumpWallCooldown = 0;
-            aceleration = 0;
+            internalAceleration = 0;
             playerRB.velocity /= 2;
         }
         onGround = value;
@@ -227,7 +229,7 @@ public class PlayerScript : MonoBehaviour
     {
         breathTemp = 0;
         GameObject currentWind = Instantiate(winds[id], windSpawner);
-        aceleration = currentWind.transform.forward.x;
+        internalAceleration = currentWind.transform.forward.x;
 
         transform.LookAt(transform.position + Vector3.forward * currentWind.transform.forward.x);
 
@@ -240,9 +242,9 @@ public class PlayerScript : MonoBehaviour
             PlayerRB.useGravity = false;
         yield return new WaitForSeconds(0.3f);
         PlayerRB.useGravity = true;
-        aceleration = 0;
+        internalAceleration = 0;
         yield return new WaitForSeconds(0.5f);
-        Destroy(newWind);
+        Destroy(newWind);   
         
     }
 
