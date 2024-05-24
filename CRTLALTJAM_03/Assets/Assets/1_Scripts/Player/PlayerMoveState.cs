@@ -21,11 +21,9 @@ public class PlayerMoveState : PlayerBaseState
 
         player.PlayerRB.velocity += new Vector3(0, 0, player.InternalAceleration * player.Aceleration);
 
-        Debug.Log(player.PlayerRB.velocity.z + " : " + player.InternalAceleration + " : "+ player.Aceleration);
-
         ManageGravity(player);        
 
-        player.text.text = player.Aceleration.ToString();
+        player.text.text = player.InternalAceleration.ToString();
     }
 
     private void ManageGravity(PlayerScript player)
@@ -48,11 +46,11 @@ public class PlayerMoveState : PlayerBaseState
             baseMultiplier = 3;
 
         //Zera a aceleração para ser recalculada
-        
+        player.SetInternalAceleration(0);
 
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
-            player.SetInternalAceleration(0);
+            
 
             if (Mathf.Abs(player.PlayerRB.velocity.z) > 0.9f)
                 player.ChangeInternalAceleration( -1 *Mathf.Sign(player.PlayerRB.velocity.z) * baseMultiplier * Time.deltaTime);
