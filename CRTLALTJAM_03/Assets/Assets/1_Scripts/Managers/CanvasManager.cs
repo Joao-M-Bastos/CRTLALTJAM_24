@@ -73,18 +73,16 @@ public class CanvasManager : MonoBehaviour
         foreach (GameObject h in breath)
             h.SetActive(false);
 
-        for (int i = 0; i < value; i++)
+        for (int i = breath.Length -1; i >= value; i--)
         {
-            breath[i].SetActive(true);
+            breath[i].GetComponent<Animator>().SetTrigger("Charge");
         }
     }
 
     public void PlayBreathUI(int value)
     {
-        if (value >= breath.Length)
+        if (value > breath.Length)
             return;
-
-        value -= 1;
 
         breath[value].GetComponent<Animator>().SetTrigger("ReCharge");
     }
