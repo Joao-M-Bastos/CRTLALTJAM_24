@@ -28,13 +28,13 @@ public class PlayerMoveState : PlayerBaseState
 
     private void ManageGravity(PlayerScript player)
     {
-        if (player.PlayerRB.velocity.y < 2f)
+        if (player.PlayerRB.velocity.y < 3f)
         {
-            player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 2f * Time.deltaTime;
+            player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 3f * Time.deltaTime;
         }
         else if (player.PlayerRB.velocity.y > 1 && !Input.GetKey(KeyCode.Space))
         {
-            player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 1.5f * Time.deltaTime;
+            player.PlayerRB.velocity += Vector3.up * Physics.gravity.y * 2f * Time.deltaTime;
         }
     }
 

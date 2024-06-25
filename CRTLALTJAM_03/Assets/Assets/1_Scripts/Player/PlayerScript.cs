@@ -19,7 +19,7 @@ public class PlayerScript : MonoBehaviour
     public float Aceleration => aceleration;
 
     public float coyoteTimeCounter;
-    float coyoteTime =0.1f;
+    [SerializeField] float coyoteTime =0.1f;
 
     public float jumpBufferTime;
     float jumpBuffer = 0.2f;
