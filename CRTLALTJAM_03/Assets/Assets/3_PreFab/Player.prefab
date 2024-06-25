@@ -137,10 +137,11 @@ MonoBehaviour:
   maxLife: 3
   life: 0
   isOnDialogue: 0
-  aceleration: 10
+  aceleration: 15
   coyoteTimeCounter: 0
+  coyoteTime: 0.1
   jumpBufferTime: 0
-  jumpForce: 8.5
+  jumpForce: 9
   windSpawner: {fileID: 4806376779531135534}
   winds:
   - {fileID: 6821029353295815475, guid: d622a8a0b4bf2244fb4be3ca4c18b4e8, type: 3}
