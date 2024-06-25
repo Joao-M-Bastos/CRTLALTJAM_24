@@ -81,9 +81,8 @@ public class CanvasManager : MonoBehaviour
 
     public void PlayBreathUI(int value)
     {
-        if (value > breath.Length)
+        if (value >= breath.Length)
             return;
-        Debug.Log(value);
         value -= 1;
         breath[value].SetActive(true);
         breath[value].GetComponent<Animator>().SetTrigger("Charge");
